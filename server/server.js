@@ -24,16 +24,19 @@ app
     //server.use only see whether url starts with specified path;
     //server.all will match complete path.
 
-
     process.env.NODE_ENV === 'development' ? server.use(morgan('dev')) : '';
     server.use(helmet());
     server.use(xss());
 
-
     server.use('/catagory/laptop', laptopRoutes);
     server.use('/catagory/mobile', mobileRoutes);
 
-
+    server.all('*', (req, res, next) => {
+      res.status(404).json({
+        status: 'fail',
+        message: `${req.originalUrl} is not found in the server`,
+      });
+    });
     server.all('*', (req, res) => {
       return handle(req, res);
     });
