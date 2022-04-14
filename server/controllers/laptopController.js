@@ -18,11 +18,25 @@ exports.createLaptopItem = async (req, res, next) => {
 
 exports.getAllLaptops = async (req, res, next) => {
   try {
+    const queryObj = req.query;
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    /*
+    this will exclude those query.❌
+    find(price[gte]=40000&sort=-price) =>> find(price[$gte]=40000)
+    */
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); // price[gte]=40000 so we have to add $ before lt,lte etc to make this work
+    queryStr = JSON.parse(queryStr);
+    // find(price[$gte]=40000)
+
     const page = req.query.page || 1;
     const limit = req.query.limit || 100;
     const skip = (page - 1) * limit;
+    //for pagination
 
-    const laptops = await Laptop.find(req.query)
+    const laptops = await Laptop.find(queryStr)
       .sort(req.query.sort)
       .select(req.query.field)
       .skip(skip)
@@ -32,7 +46,7 @@ exports.getAllLaptops = async (req, res, next) => {
       console.log(laptopNums);
       if (skip >= laptopNums) throw new Error('This page does not exist');
     }
-    console.log(req.query);
+    console.log(queryStr);
 
     res.status(201).json({
       status: 'success',
