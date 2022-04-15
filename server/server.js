@@ -10,6 +10,9 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const laptopRoutes = require('./routes/laptopRoutes');
 const mobileRoutes = require('./routes/mobileRoutes');
+const dotenv=require('dotenv')
+
+dotenv.config({ path: './../.env' });
 
 app
   .prepare()
