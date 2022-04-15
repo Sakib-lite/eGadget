@@ -10,9 +10,9 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const laptopRoutes = require('./routes/laptopRoutes');
 const mobileRoutes = require('./routes/mobileRoutes');
-const dotenv=require('dotenv')
-
-dotenv.config({ path: './../.env' });
+const dotenv = require('dotenv');
+const errorHandler = require('./controllers/errorController');
+const AppError = require('./../utils/appError');
 
 app
   .prepare()
@@ -30,16 +30,24 @@ app
     process.env.NODE_ENV === 'development' ? server.use(morgan('dev')) : '';
     server.use(helmet());
     server.use(xss());
+    dotenv.config({ path: './../.env' });
 
+    //routes
     server.use('/catagory/laptop', laptopRoutes);
     server.use('/catagory/mobile', mobileRoutes);
 
+    // server.all('*', (req, res, next) => {
+    //   res.status(404).json({
+    //     status: 'fail',
+    //     message: `${req.originalUrl} is not found in the server`,
+    //   });
+    // });
     server.all('*', (req, res, next) => {
-      res.status(404).json({
-        status: 'fail',
-        message: `${req.originalUrl} is not found in the server`,
-      });
+      next(new AppError(`${req.originalUrl} is not found in the server`, 404));
     });
+
+    server.use(errorHandler);
+
     server.all('*', (req, res) => {
       return handle(req, res);
     });
