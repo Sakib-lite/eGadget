@@ -1,4 +1,4 @@
-const Error = require('./../../utils/appError')
+const Error = require('./../../utils/appError');
 
 const developmentError = (err, req, res) => {
   //If any error occured in api
@@ -54,13 +54,28 @@ const productionError = (err, req, res) => {
   });
 };
 
+const DBduplicateField = (err) => {
+  // console.log(  );
+  // var regex =
+  //     /index\:\ (?:.*\.)?\$?(?:([_a-z0-9]*)(?:_\d*)|([_a-z0-9]*))\s*dup key/i,
+  //   match = err.message.match(regex);
+  // val = match[1] || match[2];
+
+  //E11000 duplicate key error collection: eGadget.laptops index: name_1 dup key: { name: "Hp Laptop 5" }
+  let val = err.message.match(/{([^}]+)}/)[1].split(':')[1];
+  const message = `Duplicate field value: ${val}. Please use another value!`;
+  //"Duplicate field value:  \"Hp Laptop 5\" . Please use another value!"
+  return new Error(message, 400);
+};
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') developmentError(err, req, res);
-  if (process.env.NODE_ENV.trim() === 'production'){
-    productionError(err, req, res);
+  if (process.env.NODE_ENV.trim() === 'production') {
+    let error = { ...err };
+    error.message = err.message;
+    if (error.code === 11000) error = DBduplicateField(error);
+    productionError(error, req, res);
   }
-
 };
