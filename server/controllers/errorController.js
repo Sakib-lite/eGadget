@@ -74,6 +74,11 @@ const DBcastError = (err) => {
   return new Error(message, 400);
 };
 
+const DBvalidateError = (err) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
+  const message = `Invalid input data. ${errors.join('. ')}`;
+  return new Error(message, 400);
+};
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
@@ -82,6 +87,7 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV.trim() === 'production') {
     if (err.code === 11000) err = DBduplicateField(err);
     if (err.name === 'CastError') err = DBcastError(err);
+    if (err.name === 'ValidationError') err = DBvalidateError(err);
     productionError(err, req, res);
   }
 };
