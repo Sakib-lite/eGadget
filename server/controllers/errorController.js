@@ -67,15 +67,21 @@ const DBduplicateField = (err) => {
   //"Duplicate field value:  \"Hp Laptop 5\" . Please use another value!"
   return new Error(message, 400);
 };
+
+const DBcastError = (err) => {
+  console.log(err);
+  const message = `Invalid ${err.path}:${err.value}`;
+  return new Error(message, 400);
+};
+
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') developmentError(err, req, res);
   if (process.env.NODE_ENV.trim() === 'production') {
-    let error = { ...err };
-    error.message = err.message;
-    if (error.code === 11000) error = DBduplicateField(error);
-    productionError(error, req, res);
+    if (err.code === 11000) err = DBduplicateField(err);
+    if (err.name === 'CastError') err = DBcastError(err);
+    productionError(err, req, res);
   }
 };
