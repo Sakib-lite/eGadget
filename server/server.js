@@ -12,14 +12,13 @@ const laptopRoutes = require('./routes/laptopRoutes');
 const mobileRoutes = require('./routes/mobileRoutes');
 const dotenv = require('dotenv');
 const errorHandler = require('./controllers/errorController');
-const AppError = require('./../utils/appError');
+const Error = require('./../utils/appError');
 
 app
   .prepare()
   .then(() => {
     const server = express();
     server.use(express.json());
-
     connectToDatabase();
 
     //middlewares
@@ -33,8 +32,8 @@ app
     dotenv.config({ path: './../.env' });
 
     //routes
-    server.use('/catagory/laptop', laptopRoutes);
-    server.use('/catagory/mobile', mobileRoutes);
+    server.use('/api/catagory/laptop', laptopRoutes);
+    server.use('/api/catagory/mobile', mobileRoutes);
 
     // server.all('*', (req, res, next) => {
     //   res.status(404).json({
@@ -43,7 +42,7 @@ app
     //   });
     // });
     server.all('*', (req, res, next) => {
-      next(new AppError(`${req.originalUrl} is not found in the server`, 404));
+      next(new Error(`${req.originalUrl} is not found in the server`, 404));
     });
 
     server.use(errorHandler);
