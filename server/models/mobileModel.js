@@ -98,7 +98,7 @@ const mobileSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
-      default:1,
+      default: 1,
       min: 0,
     },
     os: {
@@ -121,7 +121,14 @@ const mobileSchema = new mongoose.Schema(
       trim: true,
     },
     image: [String],
+    orderPlaced: {
+      type: Number,
+    },
+    investedInPorducts: {
+      type: Number,
+    },
   },
+
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
@@ -134,14 +141,19 @@ mobileSchema.pre('save', function (next) {
     replacement: '-',
   });
 
-  this.priceAfterDiscount =
-    this.price - getPercentage(this.price, this.discountPercent);
+  this.priceAfterDiscount = this.discountPercent
+    ? this.price - getPercentage(this.price, this.discountPercent)
+    : this.priceAfterDiscount;
   this.name = upperCaseFirstLetter(this.name);
   this.brand = upperCaseFirstLetter(this.brand);
   this.model = upperCaseFirstLetter(this.model);
   this.frontCamera = upperCaseFirstLetter(this.frontCamera);
   this.backCamera = upperCaseFirstLetter(this.backCamera);
   this.featurs = this.featurs.map((val) => upperCaseFirstLetter(val));
+
+  this.investedInPorducts = this.priceAfterDiscount
+    ? this.priceAfterDiscount * this.stock
+    : this.price * this.stock;
 
   next();
 });

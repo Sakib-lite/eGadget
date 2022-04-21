@@ -11,7 +11,7 @@ exports.productsStats = (Model) =>
         $group: {
           _id: '$brand',
           totalItems: { $sum: 1 },
-          totalPrice: { $sum: '$price' },
+          totalInvestedAmount: { $sum: '$investedInPorducts' },
           averageRating: { $avg: '$rating' },
           minPrice: { $min: '$price' },
           maxPrice: { $max: '$price' },

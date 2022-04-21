@@ -116,7 +116,7 @@ const laptopSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
-      default:1,
+      default: 1,
       min: 0,
     },
     rating: {
@@ -142,6 +142,9 @@ const laptopSchema = new mongoose.Schema(
     orderPlaced: {
       type: Number,
     },
+    investedInPorducts: {
+      type: Number,
+    },
   },
 
   {
@@ -156,12 +159,16 @@ laptopSchema.pre('save', function (next) {
     lower: true,
     replacement: '-',
   });
-  this.priceAfterDiscount =
-    this.price - getPercentage(this.price, this.discountPercent);
+  this.priceAfterDiscount = this.discountPercent
+    ? this.price - getPercentage(this.price, this.discountPercent)
+    : this.priceAfterDiscount;
   this.name = uppercaseFirstLetter(this.name);
   this.brand = uppercaseFirstLetter(this.brand);
   this.processor = uppercaseFirstLetter(this.processor);
   this.os = uppercaseFirstLetter(this.os);
+  this.investedInPorducts = this.priceAfterDiscount
+    ? this.priceAfterDiscount * this.stock
+    : this.price * this.stock;
 
   next();
 });
