@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const helmet = require('helmet');
-const xss = require('xss-clean');
+
 const laptopRoutes = require('./routes/laptopRoutes');
 const mobileRoutes = require('./routes/mobileRoutes');
 const dotenv = require('dotenv');
@@ -27,29 +27,17 @@ app
     //server.all will match complete path.
 
     process.env.NODE_ENV === 'development' ? server.use(morgan('dev')) : '';
-    server.use(helmet());
-    server.use(xss());
+    // server.use(helmet());
+    
     dotenv.config({ path: './../.env' });
-
     //routes
     server.use('/api/catagory/laptop', laptopRoutes);
     server.use('/api/catagory/mobile', mobileRoutes);
-
-    // server.all('*', (req, res, next) => {
-    //   res.status(404).json({
-    //     status: 'fail',
-    //     message: `${req.originalUrl} is not found in the server`,
-    //   });
-    // });
-    server.all('*', (req, res, next) => {
-      next(new Error(`${req.originalUrl} is not found in the server`, 404));
-    });
-
-    server.use(errorHandler);
-
     server.all('*', (req, res) => {
       return handle(req, res);
     });
+
+    server.use(errorHandler);
 
     server.listen(PORT, (err) => {
       if (err) throw err;
