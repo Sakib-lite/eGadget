@@ -1,8 +1,16 @@
 import React, { Fragment, useEffect } from 'react';
-import '../styles/globals.css';
+import '../styles/index.css';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
-import { StoreProvider } from '../utils/store/Store';
+// import { StoreProvider } from '../utils/store/Store';
 import ClientOnly from '../components/ClientOnly';
+import { StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from 'next-themes';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Provider as ReduxProvider } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
+import store from '../utils/redux/store';
+import Collapse from '@mui/material/Collapse';
+
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
@@ -17,13 +25,26 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <Fragment>
-      <ClientOnly>
-        <StoreProvider>
-          <StylesProvider generateClassName={generateClassName}>
-            <Component {...pageProps} />
-          </StylesProvider>
-        </StoreProvider>
-      </ClientOnly>{' '}
+    
+    <ReduxProvider store={store}>
+
+   
+      <StyledEngineProvider injectFirst>
+        <ClientOnly>
+          <ThemeProvider enableSystem={true} attribute='class'>
+            <CssBaseline />
+            {/* <StoreProvider> */}
+              <StylesProvider generateClassName={generateClassName}>
+              <SnackbarProvider maxSnack={3} anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }}
+    TransitionComponent={Collapse}>  <Component {...pageProps} />
+              </SnackbarProvider ></StylesProvider>
+            {/* </StoreProvider> */}
+          </ThemeProvider>
+        </ClientOnly>
+      </StyledEngineProvider> </ReduxProvider>
     </Fragment>
   );
 }
