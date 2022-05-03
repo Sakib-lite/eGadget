@@ -10,7 +10,6 @@ const developmentError = (err, req, res) => {
       stack: err.stack,
     });
   }
-
   //for showing error in the log
   console.log('⛔ Error:', err);
 

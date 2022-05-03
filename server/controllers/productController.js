@@ -1,5 +1,6 @@
 const Error = require('./../../utils/appError');
 const catchError = require('./../../utils/catchError');
+const session = require("express-session");
 
 exports.createProductItem = (Model) =>
   catchError(async (req, res, next) => {
@@ -52,6 +53,7 @@ exports.getAllProducts = (Model) =>
 exports.getProductById = (Model) =>
   catchError(async (req, res, next) => {
     const product = await Model.findById(req.params.id);
+    console.log(req.session);
     if (!product) {
       return next(
         new Error(`There is no product with this id: ${req.params.id}`, 404)

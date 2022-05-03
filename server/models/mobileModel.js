@@ -12,6 +12,11 @@ const mobileSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
+category:{
+  type: 'string',
+  default: 'Mobile'
+}
+    ,
     brand: {
       type: String,
       required: ['true', 'Mobile brand name is empty'],
@@ -149,6 +154,7 @@ mobileSchema.pre('save', function (next) {
   this.model = upperCaseFirstLetter(this.model);
   this.frontCamera = upperCaseFirstLetter(this.frontCamera);
   this.backCamera = upperCaseFirstLetter(this.backCamera);
+  this.category = upperCaseFirstLetter(this.category);
   this.featurs = this.featurs.map((val) => upperCaseFirstLetter(val));
 
   this.investedInPorducts = this.priceAfterDiscount

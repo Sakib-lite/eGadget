@@ -12,7 +12,10 @@ const laptopSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
-
+    category:{
+      type: 'string',
+      default: 'Mobile'
+    },
     brand: {
       type: String,
       required: ['true', 'Laptop brand name is empty'],
@@ -166,6 +169,8 @@ laptopSchema.pre('save', function (next) {
   this.brand = uppercaseFirstLetter(this.brand);
   this.processor = uppercaseFirstLetter(this.processor);
   this.os = uppercaseFirstLetter(this.os);
+this.category = uppercaseFirstLetter(this.category);
+
   this.investedInPorducts = this.priceAfterDiscount
     ? this.priceAfterDiscount * this.stock
     : this.price * this.stock;
