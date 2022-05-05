@@ -78,6 +78,14 @@ const DBvalidateError = (err) => {
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new Error(message, 400);
 };
+
+const jwtTokenErrorHandler = () => {
+  return new Error('Invalid token. Please login again', 401);
+};
+
+const jwtTokenExpiresErrorHander=()=>{
+return new Error("Token Expired. Please login again", 401);
+}
 // eslint-disable-next-line no-unused-vars
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
@@ -88,6 +96,8 @@ module.exports = (err, req, res, next) => {
     if (err.code === 11000) err = DBduplicateField(err);
     if (err.name === 'CastError') err = DBcastError(err);
     if (err.name === 'ValidationError') err = DBvalidateError(err);
+    if (err.name === 'JsonWebTokenError') err = jwtTokenErrorHandler();
+    if(err.name==='TokenExpiredError') err = jwtTokenExpiresErrorHander();
     productionError(err, req, res);
   }
 };
