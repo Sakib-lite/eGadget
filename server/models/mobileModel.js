@@ -12,11 +12,10 @@ const mobileSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
-category:{
-  type: 'string',
-  default: 'Mobile'
-}
-    ,
+    category: {
+      type: 'string',
+      default: 'Mobile',
+    },
     brand: {
       type: String,
       required: ['true', 'Mobile brand name is empty'],
@@ -110,14 +109,14 @@ category:{
       type: String,
       default: 'Android',
     },
-    rating: {
+    ratingsAverage: {
       type: Number,
       default: 4.5,
       min: [1, 'Rating must be above 1.0'],
       max: [5, 'Rating must be below 5.0'],
       set: (val) => Math.round(val * 10) / 10,
     },
-    ratingQuantity: {
+    ratingsQuantity: {
       type: Number,
       default: 0,
     },
@@ -139,6 +138,9 @@ category:{
     toObject: { virtuals: true },
   }
 );
+
+mobileSchema.index({ price: 1, ratingsAverage: -1 }); //compound indexing
+mobileSchema.index({ slug: 1 }); //index for slug
 
 mobileSchema.pre('save', function (next) {
   this.slug = slugify(this.brand + '-' + this.name, {
