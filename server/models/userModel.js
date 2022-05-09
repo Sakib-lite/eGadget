@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema({
 });
 
 
-
+userSchema.index({email:1})
 
 
 //if only password is modified this middleware gonna run and hash the password
