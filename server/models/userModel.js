@@ -63,7 +63,6 @@ userSchema.pre('save', async function (next) {
   this.confirmPassword = undefined;
 
   if (!this.isNew) this.passwordChangedAt = Date.now() - 1000;
-  7;
   next();
 });
 
@@ -97,7 +96,6 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 
 userSchema.methods.createPasswordResetToken = function () {
   const token = crypto.randomBytes(20).toString('hex');
-console.log(token);
   this.passwordResetToken = hashedCrypto(token);
 
   this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000;
