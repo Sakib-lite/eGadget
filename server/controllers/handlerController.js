@@ -40,7 +40,6 @@ exports.getAllDocuments = (Model) =>
 
     if (req.query.page) {
       const docsCount = await Model.countDocuments();
-      console.log(docsCount);
       if (skip >= docsCount) throw new Error('This page does not exist');
     }
 
@@ -51,10 +50,15 @@ exports.getAllDocuments = (Model) =>
     });
   });
 
-exports.getDocumentById = (Model) =>
+exports.getDocumentById = (Model, populateOptions,populateSelect) =>
   catchError(async (req, res, next) => {
-    const doc = await Model.findById(req.params.id);
-    console.log(req.session);
+    let query = Model.findById(req.params.id);
+    if (populateOptions)
+      query = query.populate({
+        path: `${populateOptions}`,
+        select: `${populateSelect}`,
+      });
+    const doc = await query;
     if (!doc) {
       return next(
         new Error(`There is no document with this id: ${req.params.id}`, 404)

@@ -142,6 +142,13 @@ const mobileSchema = new mongoose.Schema(
 mobileSchema.index({ price: 1, ratingsAverage: -1 }); //compound indexing
 mobileSchema.index({ slug: 1 }); //index for slug
 
+//virtual populating
+mobileSchema.virtual('reviews',  {
+  ref:'Review',
+  localField: '_id',
+  foreignField: 'product',
+});
+
 mobileSchema.pre('save', function (next) {
   this.slug = slugify(this.brand + '-' + this.name, {
     lower: true,

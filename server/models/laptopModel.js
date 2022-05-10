@@ -159,6 +159,13 @@ const laptopSchema = new mongoose.Schema(
 laptopSchema.index({price:1,ratingsAverage:-1}) //compound indexing
 laptopSchema.index({slug:1}) //index for slug
 
+//virtual populating
+laptopSchema.virtual('reviews',  {
+  ref:'Review',
+  localField: '_id',
+  foreignField: 'product',
+});
+
 //document middleware
 laptopSchema.pre('save', function (next) {
   this.slug = slugify(this.brand + '-' + this.name, {

@@ -7,7 +7,7 @@ const productController = require('./handlerController');
 
 exports.createLaptopItem = productController.createDocument(Laptop);
 exports.getAllLaptops = productController.getAllDocuments(Laptop);
-exports.getLaptop = productController.getDocumentById(Laptop);
+exports.getLaptop = productController.getDocumentById(Laptop,'reviews','review rating -user');
 exports.updateLaptop = productController.updateDocument(Laptop);
 exports.deleteLaptop = productController.deleteDocument(Laptop);
 exports.laptopStatistics = statisticsController.productsStats(Laptop)

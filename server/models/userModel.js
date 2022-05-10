@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please enter a valid email'],
   },
-  photo: {
+  image: {
     type: String,
     default: 'user.jpg',
   },
@@ -49,11 +49,19 @@ const userSchema = new mongoose.Schema({
   passwordResetToken: String,
   passwordResetTokenExpires: Date,
   active: { type: Boolean, select: false, default: true },
+},{ 
+  toJSON:{virtuals: true},
+  toObject:{virtuals: true}
 });
 
 
 userSchema.index({email:1})
 
+userSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'user'
+});
 
 //if only password is modified this middleware gonna run and hash the password
 userSchema.pre('save', async function (next) {
