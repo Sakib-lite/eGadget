@@ -2,6 +2,6 @@ const handlerController = require('./handlerController');
 const Review = require('../models/reviewModel');
 
 exports.createReview = handlerController.createDocument(Review);
-exports.getReviewById=handlerController.getDocumentById
-exports.updateReview=handlerController.updateDocument
-exports.deleteReview=handlerController.deleteDocument
+exports.getReviewById=handlerController.getDocumentById(Review)
+exports.updateReview=handlerController.updateDocument(Review)
+exports.deleteReview=handlerController.deleteDocument(Review)
