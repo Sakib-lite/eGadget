@@ -3,7 +3,7 @@ const userController = require('./handlerController');
 const catchError = require('../../utils/catchError');
 const Error = require('../../utils/appError');
 
-exports.getAllUsers = userController.getAllItems(User);
+exports.getAllUsers = userController.getAllDocuments(User);
 
 const excludingItems = (obj, ...exclude) => {
   let newObj = {};
@@ -40,3 +40,10 @@ exports.createUser = catchError((req, res) => {
     message: ' Please use /signup route',
   });
 });
+
+exports.getMe=(req,res,next) => {
+req.params.id=req.user.id
+  next()
+}
+
+exports.getUser=userController.getDocumentById(User,'reviews','review rating -user') //virtulal poputating reviews
