@@ -36,6 +36,19 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-const review = mongoose.model('review', reviewSchema);
+reviewSchema.index({ user: 1, product: 1 }, { unique: true });
 
-module.exports = review;
+reviewSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'product', select: 'name  image ' });
+  this.populate({
+    path: 'user',
+    select: 'name email',
+  });
+  next();
+});
+
+// reviewSchema.virtual('mediaType').get(function() { return this.onModel; });
+
+const Review = mongoose.model('Review', reviewSchema);
+
+module.exports = Review;
