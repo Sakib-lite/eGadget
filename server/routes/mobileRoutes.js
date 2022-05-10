@@ -1,4 +1,5 @@
 const express = require('express');
+const authController = require('../controllers/authController');
 const mobileController = require('./../controllers/mobileController');
 const router = express.Router();
 
@@ -13,5 +14,9 @@ router
   .route('/:id')
   .get(mobileController.getMobile)
   .patch(mobileController.updateMobile)
-  .delete(mobileController.deleteMobile);
+  .delete(
+    authController.protectedRoute,
+    authController.rescricRouteTo('admin', 'moderator'),
+    mobileController.deleteMobile
+  );
 module.exports = router;
