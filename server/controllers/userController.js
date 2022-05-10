@@ -5,16 +5,13 @@ const Error = require('../../utils/appError');
 
 exports.getAllUsers = userController.getAllItems(User);
 
-
-const excludingItems=(obj,...exclude) => {
-let newObj = {}
-Object.keys(obj).forEach(el => {
-if(!exclude.includes(el)) newObj[el]=obj[el]
-})
-return newObj
-}
-
-
+const excludingItems = (obj, ...exclude) => {
+  let newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (!exclude.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
 
 exports.updateUser = catchError(async (req, res, next) => {
   if (req.body.password || req.body.confirmPassword) {
@@ -25,8 +22,7 @@ exports.updateUser = catchError(async (req, res, next) => {
       )
     );
   }
-
-const filteredBody=excludingItems(req.body,'role','email','password')
+const filteredBody = excludingItems(req.body, 'role', 'email', 'password');
 
   const user = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     runValidators: true,
