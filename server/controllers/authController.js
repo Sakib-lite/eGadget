@@ -81,7 +81,7 @@ exports.protectedRoute = catchError(async (req, res, next) => {
   }
   //giving acces to user
 
-  req.user = currentUser;
+if(!req.user)  req.user = currentUser;
   next();
 });
 
