@@ -131,6 +131,10 @@ const mobileSchema = new mongoose.Schema(
     investedInPorducts: {
       type: Number,
     },
+    product:{
+      type: String,
+      default: 'Mobile',
+    }
   },
 
   {

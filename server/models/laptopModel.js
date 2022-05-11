@@ -148,7 +148,10 @@ const laptopSchema = new mongoose.Schema(
     investedInPorducts: {
       type: Number,
     },
-  },
+    product:{
+      type: String,
+      default: 'Laptop',
+    }  },
 
   {
     toJSON: { virtuals: true },
