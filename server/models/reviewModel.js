@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const reviewSchema = new mongoose.Schema(
   {
     review: {
@@ -36,7 +35,7 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-reviewSchema.index({ user: 1, product: 1 }, { unique: true });
+// reviewSchema.index({ user: 1, product: 1 }, { unique: true });
 
 reviewSchema.pre(/^find/, function (next) {
   this.populate({ path: 'product', select: 'name  image' });

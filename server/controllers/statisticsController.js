@@ -1,5 +1,4 @@
 const catchError = require('./../../utils/catchError');
-
 exports.productsStats = (Model) =>
   catchError(async (req, res) => {
     const productStats = await Model.aggregate([
@@ -36,5 +35,33 @@ exports.productsStats = (Model) =>
     res.status(201).json({
       status: 'success',
       data: productStats,
+    });
+  });
+
+  
+exports.reviewStatistics = (Model) =>
+  catchError(async (req, res) => {
+    const stats = await Model.aggregate([
+      // {
+      //   $match,
+      // },
+      {
+        $group: {
+          _id: '$product',
+          nRating: { $sum: 1 },
+          averageRating: { $avg: '$rating' },
+        },
+      },
+      { $addFields: { avgRating: { $round: ['$averageRating', 1] } } },
+      { $addFields: { item: '$onModel' } },
+      {
+        $project: {
+          averageRating: 0,
+        },
+      },
+    ]);
+    res.status(201).json({
+      status: 'success',
+      data: stats,
     });
   });
