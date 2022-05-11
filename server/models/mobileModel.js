@@ -124,6 +124,10 @@ const mobileSchema = new mongoose.Schema(
       type: String,
       default: 'Mobile',
     },
+    isFeatured:{
+      type: Boolean,
+      default: false,
+    }
   },
 
   {

@@ -12,9 +12,9 @@ const laptopSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
-    category:{
+    category: {
       type: 'string',
-      default: 'Mobile'
+      default: 'Mobile',
     },
     brand: {
       type: String,
@@ -137,10 +137,15 @@ const laptopSchema = new mongoose.Schema(
     investedInPorducts: {
       type: Number,
     },
-    product:{
+    product: {
       type: String,
       default: 'Laptop',
-    }  },
+    },
+    isFeatured:{
+      type: Boolean,
+      default: false,
+    }
+  },
 
   {
     toJSON: { virtuals: true },
@@ -148,12 +153,12 @@ const laptopSchema = new mongoose.Schema(
   }
 );
 
-laptopSchema.index({price:1,ratingsAverage:-1}) //compound indexing
-laptopSchema.index({slug:1}) //index for slug
+laptopSchema.index({ price: 1, ratingsAverage: -1 }); //compound indexing
+laptopSchema.index({ slug: 1 }); //index for slug
 
 //virtual populating
-laptopSchema.virtual('reviews',  {
-  ref:'Review',
+laptopSchema.virtual('reviews', {
+  ref: 'Review',
   localField: '_id',
   foreignField: 'product',
 });
@@ -174,7 +179,7 @@ laptopSchema.pre('save', function (next) {
   this.brand = uppercaseFirstLetter(this.brand);
   this.processor = uppercaseFirstLetter(this.processor);
   this.os = uppercaseFirstLetter(this.os);
-this.category = uppercaseFirstLetter(this.category);
+  this.category = uppercaseFirstLetter(this.category);
 
   this.investedInPorducts = this.priceAfterDiscount
     ? this.priceAfterDiscount * this.stock
