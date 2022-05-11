@@ -109,17 +109,6 @@ const mobileSchema = new mongoose.Schema(
       type: String,
       default: 'Android',
     },
-    ratingsAverage: {
-      type: Number,
-      default: 4.5,
-      min: [1, 'Rating must be above 1.0'],
-      max: [5, 'Rating must be below 5.0'],
-      set: (val) => Math.round(val * 10) / 10,
-    },
-    ratingsQuantity: {
-      type: Number,
-      default: 0,
-    },
     description: {
       type: String,
       trim: true,
@@ -131,10 +120,10 @@ const mobileSchema = new mongoose.Schema(
     investedInPorducts: {
       type: Number,
     },
-    product:{
+    product: {
       type: String,
       default: 'Mobile',
-    }
+    },
   },
 
   {
@@ -147,10 +136,14 @@ mobileSchema.index({ price: 1, ratingsAverage: -1 }); //compound indexing
 mobileSchema.index({ slug: 1 }); //index for slug
 
 //virtual populating
-mobileSchema.virtual('reviews',  {
-  ref:'Review',
+mobileSchema.virtual('reviews', {
+  ref: 'Review',
   localField: '_id',
   foreignField: 'product',
+});
+
+mobileSchema.virtual('nRating').get(function () {
+  return this.reviews.length;
 });
 
 mobileSchema.pre('save', function (next) {
