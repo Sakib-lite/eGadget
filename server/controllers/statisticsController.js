@@ -1,7 +1,7 @@
 const catchError = require('./../../utils/catchError');
 
 exports.productsStats = (Model) =>
-  catchError(async (req, res, next) => {
+  catchError(async (req, res) => {
     const productStats = await Model.aggregate([
       // {
       //   $match: { rating: { $gte: 1 } },
