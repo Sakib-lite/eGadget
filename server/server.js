@@ -10,6 +10,8 @@ const handle = app.getRequestHandler();
 const cors = require('cors');
 const laptopRoutes = require('./routes/laptopRoutes');
 const mobileRoutes = require('./routes/mobileRoutes');
+const userRoutes=require('./routes/userRoutes')
+const reviewRoutes=require('./routes/reviewRoutes')
 const dotenv = require('dotenv');
 const errorHandler = require('./controllers/errorController');
 // const session = require('express-session')
@@ -41,6 +43,8 @@ app
     //routes
     server.use('/api/product/laptop', laptopRoutes);
     server.use('/api/product/mobile', mobileRoutes);
+    server.use('/api/users',userRoutes);
+    server.use('/api/review',reviewRoutes)
     server.all('*', (req, res) => {
       return handle(req, res);
     });
