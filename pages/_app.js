@@ -10,6 +10,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import store from '../utils/redux/store';
 import Collapse from '@mui/material/Collapse';
+import { SnackbarUtilsConfigurator } from '../utils/notistick/Snackbar';
 
 
 const generateClassName = createGenerateClassName({
@@ -39,7 +40,7 @@ function MyApp({ Component, pageProps }) {
         vertical: 'top',
         horizontal: 'center',
     }}
-    TransitionComponent={Collapse}>  <Component {...pageProps} />
+    TransitionComponent={Collapse}>  <SnackbarUtilsConfigurator /> <Component {...pageProps} />
               </SnackbarProvider ></StylesProvider>
             {/* </StoreProvider> */}
           </ThemeProvider>
