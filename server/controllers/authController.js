@@ -59,8 +59,9 @@ exports.login = catchError(async (req, res, next) => {
 
 exports.protectedRoute = catchError(async (req, res, next) => {
   let token;
-
-  if (req.headers?.authorization?.split(' ')[0] === 'Bearer') {
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt; //getting token from cookie parsed by cookie parser
+  } else if (req.headers?.authorization?.split(' ')[0] === 'Bearer') {
     token = req.headers.authorization.split(' ')[1]; //getting token from header
   }
   if (!token)
@@ -80,8 +81,8 @@ exports.protectedRoute = catchError(async (req, res, next) => {
     );
   }
   //giving acces to user
-
-if(!req.user)  req.user = currentUser;
+  if (!req.user) req.user = currentUser;
+  res.locals.user = currentUser; //giving access to user in client side
   next();
 });
 
