@@ -13,18 +13,19 @@ const generateToken = (id) => {
   });
 };
 
-const createTokenAndSendIt = (user, statusCode, res) => {
+const createTokenAndSendIt = (user, statusCode, res, message = 'Completed') => {
   const token = generateToken(user._id);
   user.password = undefined;
   res.cookie('jwt', token, {
     expires: new Date(
-      Date.now() + process.env.JWT_EXPIRES * 30 * 24 * 60 * 60 * 1000
+      Date.now() + process.env.JWT_EXPIRES * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   });
   res.status(statusCode).json({
     status: 'success',
+    message,
     token,
     user,
   });
@@ -39,7 +40,7 @@ exports.signup = catchError(async (req, res, next) => {
     dob: req.body.dob,
   });
 
-  createTokenAndSendIt(user, 201, res);
+  createTokenAndSendIt(user, 201, res, 'User created successfully');
 });
 
 exports.login = catchError(async (req, res, next) => {
@@ -54,7 +55,7 @@ exports.login = catchError(async (req, res, next) => {
   if (!matchedPassword || !user)
     return next(new Error('Invalid email or password', 401));
 
-  createTokenAndSendIt(user, 200, res);
+  createTokenAndSendIt(user, 200, res, 'You are now logged in');
 });
 
 exports.logout = (req, res) => {
@@ -155,7 +156,7 @@ exports.resetPassword = catchError(async (req, res, next) => {
   user.passwordResetTokenExpires = undefined;
   await user.save();
 
-  createTokenAndSendIt(user, 200, res);
+  createTokenAndSendIt(user, 200, res, 'Token Sent to your email');
 });
 
 exports.changePassword = catchError(async (req, res, next) => {
@@ -176,5 +177,5 @@ exports.changePassword = catchError(async (req, res, next) => {
 
   await user.save();
 
-  createTokenAndSendIt(user, 200, res);
+  createTokenAndSendIt(user, 200, res, 'Password has Changed Succesfully');
 });
