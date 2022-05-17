@@ -57,6 +57,12 @@ exports.login = catchError(async (req, res, next) => {
   createTokenAndSendIt(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+};
 exports.protectedRoute = catchError(async (req, res, next) => {
   let token;
   if (req.cookies.jwt) {
