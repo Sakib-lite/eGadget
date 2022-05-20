@@ -5,15 +5,10 @@ import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import img from '../../public/laptop.svg';
 import IconButton from '@mui/material/IconButton';
-
 import LoginIcon from '@mui/icons-material/Login';
-
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-
 import NavOptions from './NavOptions';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import DropDown from './DropDown';
 import ViewHeadlineOutlinedIcon from '@mui/icons-material/ViewHeadlineOutlined';
 import DropDownList from './DropDownList';
 import DarkModeSwitch from './DarkModeSwitch';
@@ -23,6 +18,8 @@ import SearchBar from './SearchBar';
 import CartIcon from '../cartComponents/CartIcon';
 import Cookies from 'js-cookie';
 import { useTheme } from 'next-themes';
+import { useSelector } from 'react-redux';
+import UserAvatar from './UserAvatar';
 
 export default function Header() {
   const classes = useStyles();
@@ -33,6 +30,11 @@ export default function Header() {
   useEffect(() => {
     Cookies.set('theme', JSON.stringify(theme));
   }, [theme]);
+
+  //redux state management
+
+  const auth = useSelector((state) => state.auth);
+  const { isLoggedIn } = auth;
 
   const drawer = (
     <Fragment>
@@ -52,14 +54,17 @@ export default function Header() {
 
   return (
     <Fragment>
-      <AppBar position='static' className='bg-blue-600 dark:bg-gray-500'>
+      <AppBar
+        position='sticky'
+        className='bg-gray-200 dark:bg-gray-500 md:px-2 md:py-2 px-1 py-1'
+      >
         <Toolbar>
           <Link href='/'>
             <a className='flex items-center'>
               <div className='w-6 md:w-10'>
                 <Image width='40px' height='40px' alt='logo' src={img} />
               </div>
-              <Typography fontFamily='roboto' className='text-xs md:text-lg'>
+              <Typography fontFamily='roboto' className='text-xs md:text-lg text-gray-500 dark:text-gray-200'>
                 eGadget
               </Typography>
             </a>
@@ -71,16 +76,18 @@ export default function Header() {
               <NavOptions />
               {/* cart icon section */}
               <CartIcon />
-              <IconButton size='large' color='inherit'>
-                <HowToRegIcon />
-              </IconButton>
-              <IconButton size='large' color='inherit'>
-                <LoginIcon />
-              </IconButton>
+              {!isLoggedIn && (
+                <Link href='/login' passHref>
+                  <IconButton size='large' >
+                    <LoginIcon className='text-gray-500 dark:text-gray-100'/>
+                  </IconButton>
+                </Link>
+              )}
+
               <DarkModeSwitch />
             </div>
           )}
-
+          {isLoggedIn && <UserAvatar />}
           {matches ? (
             <Fragment>
               <CartIcon />

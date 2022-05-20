@@ -30,6 +30,7 @@ const filteredBody = excludingItems(req.body, 'role', 'email', 'password');
   });
   res.status(201).json({
     status: 'success',
+    message: 'User updated successfully',
     user,
   });
 });
@@ -46,4 +47,4 @@ req.params.id=req.user.id
   next()
 }
 
-exports.getUser=userController.getDocumentById(User,'reviews','review rating -user') //virtulal poputating reviews
+exports.getUser=userController.getDocumentById(User,'reviews','review rating onModel -user') //virtulal poputating reviews

@@ -4,63 +4,68 @@ const bcrypt = require('bcryptjs'); //
 const crypto = require('crypto');
 const hashedCrypto = require('../../utils/hashedToken');
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Please enter your name'],
-    minlength: [4, 'Name must be at least 3 characters long'],
-  },
-  email: {
-    type: String,
-    required: [true, 'Please enter your email'],
-    unique: [true, 'Email has already been used'],
-    lowercase: true,
-    validate: [validator.isEmail, 'Please enter a valid email'],
-  },
-  image: {
-    type: String,
-    default: 'user.jpg',
-  },
-  password: {
-    type: String,
-    required: [true, 'Please enter your password'],
-    minlength: [6, 'Password must be at least 6 characters long'],
-    select: process.env.NODE_ENV === 'development',
-  },
-  confirmPassword: {
-    type: String,
-    required: [true, 'Please confirm your password'],
-    validate: {
-      validator: function (val) {
-        return val === this.password;
-      },
-      message: 'Password does not match',
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please enter your name'],
+      minlength: [4, 'Name must be at least 3 characters long'],
     },
+    email: {
+      type: String,
+      required: [true, 'Please enter your email'],
+      unique: [true, 'Email has already been used'],
+      lowercase: true,
+      validate: [validator.isEmail, 'Please enter a valid email'],
+    },
+    image: {
+      type: String,
+      default: 'user.jpg',
+    },
+    password: {
+      type: String,
+      required: [true, 'Please enter your password'],
+      minlength: [6, 'Password must be at least 6 characters long'],
+      select: process.env.NODE_ENV === 'development',
+    },
+    confirmPassword: {
+      type: String,
+      required: [true, 'Please confirm your password'],
+      validate: {
+        validator: function (val) {
+          return val === this.password;
+        },
+        message: 'Password does not match',
+      },
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'user', 'moderator'],
+      default: 'user',
+      select: false,
+    },
+    cell: {
+      type: Number,
+      required: [true, 'Please enter your cell number'],
+    },
+    dob: Date,
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetTokenExpires: Date,
+    active: { type: Boolean, select: false, default: true },
   },
-  role: {
-    type: String,
-    enum: ['admin', 'user', 'moderator'],
-    default: 'user',
-    select: false,
-  },
-  cell: Number,
-  dob: Date,
-  passwordChangedAt: Date,
-  passwordResetToken: String,
-  passwordResetTokenExpires: Date,
-  active: { type: Boolean, select: false, default: true },
-},{ 
-  toJSON:{virtuals: true},
-  toObject:{virtuals: true}
-});
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
-
-userSchema.index({email:1})
+userSchema.index({ email: 1 });
 
 userSchema.virtual('reviews', {
   ref: 'Review',
   localField: '_id',
-  foreignField: 'user'
+  foreignField: 'user',
 });
 
 //if only password is modified this middleware gonna run and hash the password
