@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 import { cartActions } from '../../utils/redux/cart-slice';
 import Cookies from 'js-cookie';
 
+
 export default function AddProduct({ product }) {
   const { name, brand, price, description, slug, image, id, category } =
     product;
@@ -33,7 +34,10 @@ export default function AddProduct({ product }) {
   };
 
   useEffect(() => {
-    Cookies.set('cart', JSON.stringify(cart));
+    Cookies.set('cart', JSON.stringify(cart), {
+      expires: 30,
+      secure: process.env.ENV === 'production',
+    });
   }, [cart]);
 
   return (

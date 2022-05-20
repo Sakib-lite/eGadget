@@ -6,7 +6,6 @@ import CardContent from '@mui/material/CardContent';
 // import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import mobileImage from '../../public/products/mobile.png';
 import Image from 'next/image';
 // import img from '../../public/carousel/laptop.jpg';
 import { useStyles } from '../../utils/styles';
@@ -20,13 +19,11 @@ import { useDispatch } from 'react-redux';
 import { cartActions } from './../../utils/redux/cart-slice';
 import { useSnackbar } from 'notistack';
 
-
 export default function AllProducts({ product }) {
   const { name, brand, price, description, slug, image, id, category } =
     product;
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const { enqueueSnackbar } = useSnackbar();
 
   const addItemToCartHandler = () => {
@@ -47,20 +44,19 @@ export default function AllProducts({ product }) {
       variant: 'success',
       autoHideDuration: 1500,
     });
-
   };
 
   return (
     <Fragment>
       <Paper elevation={3}>
         <Card className='bg-white dark:bg-gray-300'>
-          <Link href={`/product/mobile/${slug}`} passHref>
+          <Link href={`/products/mobile/${slug}`} passHref>
             <CardActionArea>
               <div className={classes.centerComponent}>
                 <Image
                   width='200px'
                   height='200px'
-                  src={mobileImage}
+                  src={`/products/${image}`}
                   alt='product'
                 />
               </div>

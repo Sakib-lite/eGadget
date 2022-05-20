@@ -11,9 +11,9 @@ const cart=useSelector(state=>state.cart)
 
   return (
     <Fragment>
-     <Link href='/cart' passHref><IconButton size='large' color='inherit'>
+     <Link href='/cart' passHref><IconButton size='large' >
       <Badge badgeContent={cart.totalItems} color='warning'>
-      <ShoppingCartCheckoutIcon />
+      <ShoppingCartCheckoutIcon className='text-gray-500 dark:text-gray-100'/>
     </Badge>  
 
      </IconButton></Link>

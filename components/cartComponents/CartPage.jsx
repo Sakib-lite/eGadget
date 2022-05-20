@@ -15,7 +15,10 @@ export default function CartPage() {
   const cart = useSelector((state) => state.cart);
   const items = cart.cartItems;
   React.useEffect(() => {
-    Cookies.set('cart', JSON.stringify(cart));
+    Cookies.set('cart', JSON.stringify(cart), {
+      expires: 30,
+      secure: process.env.ENV === 'production',
+    });
   }, [cart]);
 
 

@@ -8,7 +8,10 @@ import Cookies from 'js-cookie';
 export default function AllProducts({ products }) {
   const cart = useSelector((state) => state.cart);
 useEffect(() => {
-Cookies.set('cart',JSON.stringify(cart))
+Cookies.set('cart',JSON.stringify(cart), {
+  expires: 30,
+  secure: process.env.ENV === 'production',
+})
 }, [cart])
 
   return (

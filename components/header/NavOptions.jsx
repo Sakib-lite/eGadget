@@ -19,14 +19,14 @@ export default function NavOptions() {
       <div className='justify-center'>
         <Button
           variant='outlined'
-          className='text-white border-transparent hover:border-current'
+          className='text-gray-500 dark:text-gray-100 border-transparent hover:border-current'
         >
     
           Home
         </Button>
         <Button
           variant='outlined'
-          className='text-white border-transparent hover:border-current'
+          className='text-gray-500 dark:text-gray-100 border-transparent hover:border-current'
           id='basic-button'
           aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup='true'
