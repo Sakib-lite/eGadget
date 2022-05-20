@@ -126,7 +126,11 @@ const laptopSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    image: [String],
+    image: {
+      type: String,
+      default: 'product.png',
+    },
+    imageCollections: [String],
     createdAt: {
       type: Date,
       default: new Date(),
@@ -164,7 +168,7 @@ laptopSchema.virtual('reviews', {
 });
 
 laptopSchema.virtual('nRating').get(function () {
-  return this.reviews.length;
+  return this.reviews?.length;
 });
 //document middleware
 laptopSchema.pre('save', function (next) {

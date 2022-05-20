@@ -50,7 +50,7 @@ export default function AllProducts({ product }) {
     <Fragment>
       <Paper elevation={3}>
         <Card className='bg-white dark:bg-gray-300'>
-          <Link href={`/products/mobile/${slug}`} passHref>
+          <Link href={`/product/mobile/${slug}`} passHref>
             <CardActionArea>
               <div className={classes.centerComponent}>
                 <Image

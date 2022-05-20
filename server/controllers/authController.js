@@ -9,7 +9,7 @@ const hashedCrypto = require('../../utils/hashedToken');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES * 30 * 24 * 60 * 60 * 1000,
+    expiresIn: process.env.JWT_EXPIRES * 24 * 60 * 60 * 1000,
   });
 };
 
@@ -38,6 +38,7 @@ exports.signup = catchError(async (req, res, next) => {
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     dob: req.body.dob,
+    cell: req.body.cell,
   });
 
   createTokenAndSendIt(user, 201, res, 'User created successfully');
@@ -50,7 +51,7 @@ exports.login = catchError(async (req, res, next) => {
     return next(new Error('Please login with email and password'), 400);
 
   const user = await User.findOne({ email }).select('+password');
-
+  if (!user) return next(new Error('Invalid email or password', 401));
   const matchedPassword = await user.comparePassword(password, user.password);
   if (!matchedPassword || !user)
     return next(new Error('Invalid email or password', 401));
@@ -63,6 +64,7 @@ exports.logout = (req, res) => {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
+  res.status(200).json({ status: 'success', message: 'You are logged out' });
 };
 exports.protectedRoute = catchError(async (req, res, next) => {
   let token;

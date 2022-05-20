@@ -12,7 +12,6 @@ import store from '../utils/redux/store';
 import Collapse from '@mui/material/Collapse';
 import { SnackbarUtilsConfigurator } from '../utils/notistick/Snackbar';
 
-
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
 });
@@ -26,26 +25,30 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <Fragment>
-    
-    <ReduxProvider store={store}>
-
-   
-      <StyledEngineProvider injectFirst>
-        <ClientOnly>
-          <ThemeProvider enableSystem={true} attribute='class'>
-            <CssBaseline />
-            {/* <StoreProvider> */}
+      <ReduxProvider store={store}>
+        <StyledEngineProvider injectFirst>
+          <ClientOnly>
+            <ThemeProvider enableSystem={true} attribute='class'>
+              <CssBaseline />
+              {/* <StoreProvider> */}
               <StylesProvider generateClassName={generateClassName}>
-              <SnackbarProvider maxSnack={3} anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-    }}
-    TransitionComponent={Collapse}>  <SnackbarUtilsConfigurator /> <Component {...pageProps} />
-              </SnackbarProvider ></StylesProvider>
-            {/* </StoreProvider> */}
-          </ThemeProvider>
-        </ClientOnly>
-      </StyledEngineProvider> </ReduxProvider>
+                <SnackbarProvider
+                  maxSnack={3}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  TransitionComponent={Collapse}
+                >
+                  {' '}
+                  <SnackbarUtilsConfigurator /> <Component {...pageProps} />
+                </SnackbarProvider>
+              </StylesProvider>
+              {/* </StoreProvider> */}
+            </ThemeProvider>
+          </ClientOnly>
+        </StyledEngineProvider>{' '}
+      </ReduxProvider>
     </Fragment>
   );
 }

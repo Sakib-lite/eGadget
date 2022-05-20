@@ -113,7 +113,11 @@ const mobileSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    image: [String],
+    image: {
+      type: String,
+      default: 'product.png',
+    },
+    imageCollections: [String],
     orderPlaced: {
       type: Number,
     },
@@ -124,10 +128,10 @@ const mobileSchema = new mongoose.Schema(
       type: String,
       default: 'Mobile',
     },
-    isFeatured:{
+    isFeatured: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
   {
@@ -147,7 +151,7 @@ mobileSchema.virtual('reviews', {
 });
 
 mobileSchema.virtual('nRating').get(function () {
-  return this.reviews.length;
+  return this.reviews?.length;
 });
 
 mobileSchema.pre('save', function (next) {

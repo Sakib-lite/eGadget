@@ -1,4 +1,3 @@
-
 import { Typography } from '@mui/material';
 import { Fragment } from 'react';
 
@@ -9,7 +8,6 @@ import AllProducts from '../components/products/AllProducts';
 import { useStyles } from '../utils/styles';
 export default function Home({ data }) {
   const classes = useStyles();
-
 
   return (
     <Fragment>
