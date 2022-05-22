@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { logout } from './../../utils/redux/auth-slice';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const UserAvatar = () => {
@@ -36,16 +35,7 @@ const UserAvatar = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar sx={{ width: 32, height: 32 }}>
-          <Image
-            alt={user.name}
-            src={`/users/${user.image}`}
-            layout='fill'
-            objectFit='cover'
-            quality={100}
-            priority={true}
-          />
-        </Avatar>
+        <Avatar sx={{ width: 32, height: 32 }} src={`/users/${user.image}`}/>
       </Button>
       <Menu
         id='basic-menu'

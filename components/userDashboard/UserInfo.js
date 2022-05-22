@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
 import { useSelector } from 'react-redux';
 
@@ -13,20 +12,14 @@ const UserInfo = () => {
           <h2 className='font-medium text-md text-gray-700 mb-4 tracking-wide'>
             Profile Info
           </h2>
-          
         </div>
         <div className='md:w-2/3 w-full'>
           <div className='py-4 px-16 clearfix flex items-center justify-center'>
-            <Avatar sx={{ width: 65, height: 65 }}>
-              <Image
-                layout='fill'
-                className='rounded-full w-16 h-16 border-4 border-gray-200 float-left'
-                id='photo'
-                src='/users/user.jpg'
-                alt='photo'
-                quality={100}
-              />
-            </Avatar>
+            <Avatar
+              sx={{ width: 65, height: 65 }}
+              src={`/users/${user?.image}`}
+              alt={user?.name}
+            />
           </div>
           <div className='py-4 px-16'>
             <label htmlFor='name' className='text-sm text-gray-600'>

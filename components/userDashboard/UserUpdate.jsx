@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
+// import Input from '@mui/material/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../utils/redux/auth-slice';
 
@@ -11,11 +11,7 @@ const UserUpdate = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const formData = {
-      name: data.get('name'),
-      cell: data.get('cell'),
-    };
-    dispatch(updateUser(formData));
+    dispatch(updateUser(data));
   };
   return (
     <Fragment>
@@ -30,10 +26,11 @@ const UserUpdate = () => {
           </p>
         </div>
 
-       
-          <div className='md:w-2/3 w-full'>
-         <form onSubmit={handleSubmit}>     <div className='py-2 px-16'>
-             <TextField
+        <div className='md:w-2/3 w-full'>
+          <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            {' '}
+            <div className='py-2 px-16'>
+              <TextField
                 margin='normal'
                 required
                 fullWidth
@@ -45,7 +42,6 @@ const UserUpdate = () => {
                 defaultValue={user?.name}
               />
             </div>
-
             <div className='py-2 px-16'>
               <TextField
                 margin='normal'
@@ -59,28 +55,16 @@ const UserUpdate = () => {
                 defaultValue={user?.cell}
               />
             </div>
-
-            <div className='py-4 px-16 clearfix flex items-center'>
-              <Avatar sx={{ width: 50, height: 50 }}>
-                <Image
-                  layout='fill'
-                  class='rounded-full w-16 h-16 border-4 border-gray-200 float-left'
-                  id='photo'
-                  src='/users/user.jpg'
-                  alt='photo'
-                />
-              </Avatar>
+            <div className='py-4 px-16  flex items-center'>
+              <Avatar
+                sx={{ width: 65, height: 65 }}
+                src={`/users/${user?.image}`}
+                alt={user?.name}
+              />
               <div className='bg-gray-200 text-gray-500 text-xs  ml-3 font-bold px-4 py-2 rounded-lg float-left hover:bg-gray-300 hover:text-gray-600 relative overflow-hidden cursor-pointer'>
-                <input
-                  type='file'
-                  name='photo'
-                  onChange='loadFile(event)'
-                  className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
-                />
-                Change Photo
+                <input id='image' name='image' accept='image/*' type='file' />
               </div>
             </div>
-
             <div className='p-16 py-8 bg-gray-300 clearfix rounded-b-lg border-t border-gray-200 flex flex-row-reverse'>
               <button
                 className='relative inline-block px-4 py-1 overflow-hidden border border-indigo-600 group focus:outline-none focus:ring'
@@ -93,8 +77,8 @@ const UserUpdate = () => {
                 </span>
               </button>
             </div>
-          </form></div>
-        
+          </form>
+        </div>
       </div>
     </Fragment>
   );

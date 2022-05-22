@@ -27,21 +27,10 @@ const Profile = () => {
                 onChange={handleChange}
                 aria-label='lab API tabs example'
               >
-                {/* <ul className='flex border-b border-gray-300 text-sm font-medium text-gray-600 mt-3 px-6 md:px-0'>
-                <li className='mr-8 text-gray-900 border-b-2 border-gray-800'>
-                  <Tab label='Details' value='1' />
-                </li>
-                <li className='mr-8 hover:text-gray-900'>
-                  <Tab label='Update' value='2' />
-                </li>
-                <li className='mr-8 hover:text-gray-900'>
-                  <Tab label='Dashboard' value='3' />
-                </li>
-              </ul> */}
                 <Tab label='Details' value='1' />
                 <Tab label='Update' value='2' />
                 <Tab label='Orders' value='3' />
-                <Tab label='Dashboard' value='4' />
+                <Tab label='Reviews' value='4' />
               </TabList>
               <TabPanel value='1'>
                 <UserInfo />
