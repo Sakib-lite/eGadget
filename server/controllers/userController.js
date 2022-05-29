@@ -77,8 +77,7 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
-exports.getUser = userController.getDocumentById(
-  User,
-  'reviews',
-  'review rating onModel -user'
-); //virtulal poputating reviews
+exports.getUser = userController.getDocumentById(User, [
+  ['reviews', 'review rating onModel -user'],
+  ['orders', 'cart price createdAt -user'],
+]); //virtulal poputating reviews

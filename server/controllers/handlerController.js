@@ -50,14 +50,14 @@ exports.getAllDocuments = (Model) =>
     });
   });
 
-exports.getDocumentById = (Model, populateOptions,populateSelect) =>
+exports.getDocumentById = (Model, populateArr) =>
   catchError(async (req, res, next) => {
     let query = Model.findById(req.params.id);
-    if (populateOptions)
-      query = query.populate({
-        path: `${populateOptions}`,
-        select: `${populateSelect}`,
-      });
+    if (populateArr){
+      query = query.populate(populateArr.map((pop)=>({
+        path: pop[0],
+        select: pop[1],
+      })));}
     const doc = await query;
     if (!doc) {
       return next(
