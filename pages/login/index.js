@@ -8,10 +8,10 @@ import Layout from '../../components/layout/Layout';
 const Login = () => {
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
-
+  const { redirect } = router.query; 
   useEffect(() => {
-    if (user) router.push('/');
-  }, [router, user]);
+    if (user) router.push(redirect || '/');
+  }, [redirect, router, user]);
 
   return (
     <Fragment>
