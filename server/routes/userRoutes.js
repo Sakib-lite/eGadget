@@ -16,7 +16,13 @@ router.use(authController.protectedRoute); //proted route for logged user only
 
 router.route('/me').get(userController.getMe,userController.getUser)
 router.route('/me/change-password').patch(authController.changePassword);
-router.route('/:id').patch(userController.updateUser);
+router
+  .route('/:id')
+  .patch(
+    userController.uploadImage,
+    userController.resizeImage,
+    userController.updateUser
+  );
 router
   .route('/')
   .get(authController.rescricRouteTo('admin'), userController.getAllUsers);
