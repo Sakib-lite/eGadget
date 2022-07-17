@@ -119,6 +119,7 @@ export default function Carousel() {
                   src={step.image}
                   width='50%'
                   height='30%'
+                  priority={true}
                 />
             </div>
         </div>
