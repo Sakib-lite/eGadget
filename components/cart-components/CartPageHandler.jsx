@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch } from 'react-redux';
-import { cartActions } from './../../utils/redux/cart-slice';
+import { cartActions } from '../../utils/redux/cart-slice';
 import TableCell from '@mui/material/TableCell';
 import { useSnackbar } from 'notistack';
 
