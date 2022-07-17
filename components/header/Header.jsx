@@ -15,7 +15,7 @@ import DarkModeSwitch from './DarkModeSwitch';
 import Link from 'next/link';
 import { useStyles } from '../../utils/styles';
 import SearchBar from './SearchBar';
-import CartIcon from '../cartComponents/CartIcon';
+import CartIcon from '../cart-components/CartIcon';
 import Cookies from 'js-cookie';
 import { useTheme } from 'next-themes';
 import { useSelector } from 'react-redux';
@@ -56,13 +56,13 @@ export default function Header() {
     <Fragment>
       <AppBar
         position='sticky'
-        className='bg-gray-200 dark:bg-gray-500 md:px-2 md:py-2 px-1 py-1'
+        className='bg-gray-200 dark:bg-gray-500 md:px-2 md:py-2 px-1 py-1 mb-4'
       >
         <Toolbar>
           <Link href='/'>
             <a className='flex items-center'>
               <div className='w-6 md:w-10'>
-                <Image width='40px' height='40px' alt='logo' src={img} />
+                <Image width='40px' height='40px' alt='logo' src={img} priority={true}/>
               </div>
               <Typography fontFamily='roboto' className='text-xs md:text-lg text-gray-500 dark:text-gray-200'>
                 eGadget
@@ -87,10 +87,11 @@ export default function Header() {
               <DarkModeSwitch />
             </div>
           )}
-          {isLoggedIn && <UserAvatar />}
+          {isLoggedIn && !matches && <UserAvatar />}
           {matches ? (
             <Fragment>
               <CartIcon />
+              {isLoggedIn && <UserAvatar />}
               <IconButton
                 className='text-white'
                 onClick={() => setOpenDrawer(!openDrawer)}

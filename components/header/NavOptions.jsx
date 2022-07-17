@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Link from 'next/link'
 
 export default function NavOptions() {
   //munu strats from here
@@ -48,9 +49,9 @@ export default function NavOptions() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Laptop</MenuItem>
-        <MenuItem onClick={handleClose}>Mobile</MenuItem>
-        <MenuItem onClick={handleClose}>Others</MenuItem>
+        <Link href='/product/laptop' passHref><MenuItem onClick={handleClose}>Laptop</MenuItem></Link>
+        <Link href='/product/mobile' passHref><MenuItem onClick={handleClose}>Mobile</MenuItem></Link>
+        <Link href='/product/others' passHref><MenuItem onClick={handleClose}>Others</MenuItem></Link>
       </Menu>
     </Fragment>
   );
