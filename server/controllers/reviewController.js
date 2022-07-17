@@ -5,7 +5,6 @@ const statisticsController = require('./statisticsController');
 exports.getUserAndProductId = (req, res, next) => {
   req.body.user = req.user.id;
   req.body.product = req.params.productId;
-
 next()
 };
 

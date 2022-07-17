@@ -21,13 +21,17 @@ const reviewSchema = new mongoose.Schema(
     onModel: {
       type: String,
       required: true,
-      enum: ['Laptop', 'Mobile'],
+      enum: ['Laptop', 'Mobile','Other'],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Review must belong to a user'],
     },
+    createdAt:{
+      type:Date,
+      default:Date.now()
+    }
   },
   {
     toJSON: { virtuals: true },
@@ -35,10 +39,10 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-// reviewSchema.index({ user: 1, product: 1 }, { unique: true });
+// reviewSchema.index({ user: 1, product: 1 }, { unique: true }); 
 
 reviewSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'product', select: 'name  image' });
+  this.populate({ path: 'product', select: 'name  image slug' });
   this.populate({
     path: 'user',
     select: 'name image',
