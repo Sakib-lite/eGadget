@@ -25,7 +25,7 @@ const UserAvatar = () => {
     dispatch(logout());
     setAnchorEl(null);
   };
-
+if(!user) return null;
   return (
     <Fragment>
       <Button
@@ -59,6 +59,18 @@ const UserAvatar = () => {
           </Link>
         </MenuItem>
         <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+        <MenuItem>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: '#000',
+            }}
+            href='/dashboard'
+            onClick={handleClose}
+          >
+            Dashboard
+          </Link>
+        </MenuItem>
       </Menu>
     </Fragment>
   );

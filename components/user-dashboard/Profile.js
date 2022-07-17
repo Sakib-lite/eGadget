@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -7,10 +7,29 @@ import UserUpdate from './UserUpdate.jsx';
 import UserInfo from './UserInfo';
 import Orders from './Orders.js';
 import AllReviews from './AllReviews.js';
+import { useDispatch } from 'react-redux';
+import { setLoading, unsetLoading } from '../../utils/redux/ui-slice.js';
+import axios from 'axios';
+import Snackbar from '../../utils/notistick/Snackbar.js';
 
 const Profile = () => {
   const [value, setValue] = React.useState('1');
-
+  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        dispatch(setLoading());
+        const response = await axios.get('/api/users/me');
+        setData(response.data.data);
+        dispatch(unsetLoading());
+      } catch (err) {
+        dispatch(unsetLoading());
+        Snackbar.error(err.response.data.message);
+      }
+    };
+    getData();
+  }, [dispatch]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -42,7 +61,7 @@ const Profile = () => {
                 <Orders />
               </TabPanel>
               <TabPanel value='4'>
-          <AllReviews/>
+          <AllReviews reviews={data?.reviews}/>
               </TabPanel>
             </TabContext>
           </div>

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { login } from '../../utils/redux/auth-slice';
 
+
 export default function LoginPage() {
   const dispatch = useDispatch();
 
@@ -23,7 +24,7 @@ export default function LoginPage() {
       password: data.get('password'),
     };
 
-    dispatch(login(formData));
+    dispatch(login(formData))
   };
 
   return (
@@ -41,6 +42,7 @@ export default function LoginPage() {
           alignItems: 'center',
         }}
       >
+
         <Avatar className='bg-green-400'>
           <LockOutlinedIcon />
         </Avatar>
