@@ -1,10 +1,16 @@
-/* eslint-disable no-unused-vars */
 const Error = require('../../utils/appError');
 const catchError = require('../../utils/catchError');
-const session = require("express-session");
+const Review = require('../models/reviewModel');
 
 exports.createDocument = (Model) =>
-  catchError(async (req, res, next) => {
+  catchError(async (req, res) => {
+    if (req.file) {
+      const image = req.file.fileName;
+      console.log(req.file)
+      req.body = { ...req.body, image };
+    
+    }
+
     const doc = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
@@ -13,7 +19,7 @@ exports.createDocument = (Model) =>
   });
 
 exports.getAllDocuments = (Model) =>
-  catchError(async (req, res, next) => {
+  catchError(async (req, res) => {
     const queryObj = req.query;
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     /*
@@ -52,12 +58,18 @@ exports.getAllDocuments = (Model) =>
 
 exports.getDocumentById = (Model, populateArr) =>
   catchError(async (req, res, next) => {
-    let query = Model.findById(req.params.id);
-    if (populateArr){
-      query = query.populate(populateArr.map((pop)=>({
-        path: pop[0],
-        select: pop[1],
-      })));}
+    let query;
+    req.params.slug
+      ? (query = Model.findOne({ slug: req.params.slug }))
+      : (query = Model.findById(req.params.id));
+    if (populateArr) {
+      query = query.populate(
+        populateArr.map((pop) => ({
+          path: pop[0],
+          select: pop[1] || '',
+        }))
+      );
+    }
     const doc = await query;
     if (!doc) {
       return next(
@@ -90,6 +102,10 @@ exports.updateDocument = (Model) =>
 
 exports.deleteDocument = (Model) =>
   catchError(async (req, res, next) => {
+    const review = await Review.findOne({ product: { _id: req.params.id } });
+    if (review) {
+      await Review.findByIdAndDelete(review._id);
+    }
     const doc = await Model.findByIdAndDelete(req.params.id);
     if (!doc) {
       return next(
