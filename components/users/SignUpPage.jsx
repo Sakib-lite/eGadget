@@ -38,7 +38,7 @@ export default function SignUpPage() {
       <Container
         component='main'
         maxWidth='xs'
-        className='dark:bg-gray-300 bg-gray-100'
+        className='dark:bg-gray-300 bg-gray-100 rounded-lg'
       >
         <CssBaseline />
         <Box

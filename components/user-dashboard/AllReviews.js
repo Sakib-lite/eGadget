@@ -6,7 +6,7 @@ const AllReviews = ({reviews}) => {
 
   return (
     <Fragment>
-      <section className='bg-white dark:bg-gray-500'>
+      <section className='bg-white dark:bg-gray-500 rounded-lg'>
         <div className='container px-6 py-10 mx-auto'>
           <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-2'>
             {reviews?.map((product) => (

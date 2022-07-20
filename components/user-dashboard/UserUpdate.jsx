@@ -22,7 +22,7 @@ const UserUpdate = () => {
             Profile Info
           </h2>
           <p className='text-xs text-gray-500'>
-            Update your basic profile information such as Email Address, Name,
+            Update your basic profile information such as Name,
             and Image.
           </p>
         </div>
@@ -56,7 +56,7 @@ const UserUpdate = () => {
                 defaultValue={user?.cell}
               />
             </div>
-            <div className='py-4 px-16  flex items-center'>
+            <div className='py-4 sm:px-16 px-2  flex items-center'>
               <Avatar
                 sx={{ width: 65, height: 65 }}
                 src={`/users/${user?.image}`}

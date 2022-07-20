@@ -11,8 +11,13 @@ import { useDispatch } from 'react-redux';
 import { setLoading, unsetLoading } from '../../utils/redux/ui-slice.js';
 import axios from 'axios';
 import Snackbar from '../../utils/notistick/Snackbar.js';
+import { useStyles } from '../../utils/styles.js';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const Profile = () => {
+  const matches = useMediaQuery('(max-width:400px)');
+  const classes=useStyles()
   const [value, setValue] = React.useState('1');
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
@@ -26,6 +31,7 @@ const Profile = () => {
       } catch (err) {
         dispatch(unsetLoading());
         Snackbar.error(err.response.data.message);
+        console.log(err)
       }
     };
     getData();
@@ -46,10 +52,11 @@ const Profile = () => {
                 onChange={handleChange}
                 aria-label='lab API tabs example'
               >
-                <Tab label='Details' value='1' />
-                <Tab label='Update' value='2' />
-                <Tab label='Orders' value='3' />
-                <Tab label='Reviews' value='4' />
+                <span className=""></span>
+                <Tab label={<span className='text-xs md:text-lg'>Details</span>} value='1' classes={matches && { root: classes.tab }}/>
+                <Tab label={<span className='text-xs md:text-lg'>Update</span>} value='2' classes={matches &&{ root: classes.tab }}/>
+                <Tab label={<span className='text-xs md:text-lg'>Orders</span>} value='3' classes={matches &&{ root: classes.tab }}/>
+                <Tab label={<span className='text-xs md:text-lg'>Reviews</span>} value='4' classes={matches &&{ root: classes.tab }}/>
               </TabList>
               <TabPanel value='1'>
                 <UserInfo />

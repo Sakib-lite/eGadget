@@ -4,15 +4,14 @@ import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 
-
 export default function AllProducts({ products }) {
   const cart = useSelector((state) => state.cart);
-useEffect(() => {
-Cookies.set('cart',JSON.stringify(cart), {
-  expires: 30,
-  secure: process.env.ENV === 'production',
-})
-}, [cart])
+  useEffect(() => {
+    Cookies.set('cart', JSON.stringify(cart), {
+      expires: 30,
+      secure: process.env.ENV === 'production',
+    });
+  }, [cart]);
 
   return (
     <Fragment>
@@ -23,12 +22,10 @@ Cookies.set('cart',JSON.stringify(cart), {
       >
         {products?.data?.map((product) => (
           <Grid item xs={2} sm={4} md={4} key={product.name}>
-          
-      <Product product={product} />
+            <Product product={product} />
           </Grid>
         ))}
       </Grid>
     </Fragment>
   );
 }
- 

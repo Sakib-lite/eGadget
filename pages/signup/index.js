@@ -16,7 +16,7 @@ const SignUp = () => {
   return (
     <Fragment>
       <Layout>
-        <Grid container className='dark:bg-gray-500' justifyContent='center'>
+        <Grid container className='dark:bg-gray-500 py-6' justifyContent='center'>
           <SignUpPage />
         </Grid>
       </Layout>

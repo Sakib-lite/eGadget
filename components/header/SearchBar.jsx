@@ -9,7 +9,7 @@ export default function SearchBar() {
   const router = useRouter();
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      router.push(`search?name=${search}`);
+      router.push(`/search?name=${search}`);  
     }
   };
 

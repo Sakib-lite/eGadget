@@ -39,7 +39,7 @@ const mobileSchema = new mongoose.Schema(
       uppercase: true,
       trim: true,
     },
-    featurs: {
+    features: {
       type: [String],
       default: ['Fingerprint', 'accelerometer', 'gyro', 'proximity', 'compass'],
     },
@@ -117,7 +117,6 @@ const mobileSchema = new mongoose.Schema(
       type: String,
       default: 'product.png',
     },
-    imageCollections: [String],
     orderPlaced: {
       type: Number,
     },
@@ -154,11 +153,21 @@ mobileSchema.virtual('nRating').get(function () {
   return this.reviews?.length;
 });
 
+mobileSchema.virtual('ratingsAverage').get(function () {
+  if (this.reviews?.length) {
+    const val = this.reviews.reduce(function (a, b) {
+      return a + b['rating'];
+    }, 0);
+    return (val / this.reviews.length).toFixed(2);
+  }
+});
+
 mobileSchema.pre('save', function (next) {
   this.slug = slugify(this.brand + '-' + this.name, {
     lower: true,
     replacement: '-',
   });
+  
 
   this.priceAfterDiscount = this.discountPercent
     ? this.price - getPercentage(this.price, this.discountPercent)
@@ -169,7 +178,7 @@ mobileSchema.pre('save', function (next) {
   this.frontCamera = upperCaseFirstLetter(this.frontCamera);
   this.backCamera = upperCaseFirstLetter(this.backCamera);
   this.category = upperCaseFirstLetter(this.category);
-  this.featurs = this.featurs.map((val) => upperCaseFirstLetter(val));
+  this.features = this.features.map((val) => upperCaseFirstLetter(val));
 
   this.investedInPorducts = this.priceAfterDiscount
     ? this.priceAfterDiscount * this.stock

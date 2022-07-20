@@ -35,6 +35,7 @@ export const login = createAsyncThunk(
       if (response.token) Cookies.set('user', JSON.stringify(response.user));
       Snackbar.success(response.message);
       dispatch(unsetLoading());
+      window.location.reload();
       return { user: response };
     } catch (err) {
       dispatch(unsetLoading());
@@ -62,6 +63,7 @@ export const updateUser = createAsyncThunk(
       Cookies.set('user', JSON.stringify(response.user));
       Snackbar.success(response.message);
       window.location.reload();
+      dispatch(unsetLoading());
       return { user: response };
     } catch (err) {
       dispatch(unsetLoading());

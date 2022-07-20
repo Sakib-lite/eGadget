@@ -14,11 +14,12 @@ const laptopSchema = new mongoose.Schema(
     },
     category: {
       type: 'string',
-      default: 'Mobile',
+      default: 'Laptop',
     },
     brand: {
       type: String,
       required: ['true', 'Laptop brand name is empty'],
+      trim: true,
     },
     series: {
       type: String,
@@ -61,16 +62,6 @@ const laptopSchema = new mongoose.Schema(
       uppercase: true,
       default: '8GB',
     },
-    ramType: {
-      type: String,
-      default: 'DDR4',
-      uppercase: true,
-    },
-    bus: {
-      type: String,
-      default: '2400 MHZ',
-      uppercase: true,
-    },
     storage: {
       type: String,
       // required: ['true', 'Laptop storage size is required'],
@@ -82,10 +73,6 @@ const laptopSchema = new mongoose.Schema(
       default: 'Intel Graphics',
     },
     wifi: {
-      type: Boolean,
-      default: true,
-    },
-    bluetooth: {
       type: Boolean,
       default: true,
     },
@@ -130,7 +117,6 @@ const laptopSchema = new mongoose.Schema(
       type: String,
       default: 'product.png',
     },
-    imageCollections: [String],
     createdAt: {
       type: Date,
       default: new Date(),
@@ -145,10 +131,10 @@ const laptopSchema = new mongoose.Schema(
       type: String,
       default: 'Laptop',
     },
-    isFeatured:{
+    isFeatured: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
   {
@@ -170,6 +156,15 @@ laptopSchema.virtual('reviews', {
 laptopSchema.virtual('nRating').get(function () {
   return this.reviews?.length;
 });
+laptopSchema.virtual('ratingsAverage').get(function () {
+  if (this.reviews?.length) {
+    const val = this.reviews.reduce(function (a, b) {
+      return a + b['rating'];
+    }, 0);
+    return (val / this.reviews.length).toFixed(2);
+  }
+});
+
 //document middleware
 laptopSchema.pre('save', function (next) {
   this.slug = slugify(this.brand + '-' + this.name, {

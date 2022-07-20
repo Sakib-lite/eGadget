@@ -23,7 +23,8 @@ export default function Layout({ children }) {
         cartCookie || { cartItems: [], totalItems: 0, totalPrice: 0 }
       )
     );
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   const classes = useStyles();
   return (
     <Fragment>

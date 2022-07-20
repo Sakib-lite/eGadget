@@ -23,7 +23,7 @@ import UserAvatar from './UserAvatar';
 
 export default function Header() {
   const classes = useStyles();
-  const matches = useMediaQuery('(max-width:960px)');
+  const matches = useMediaQuery('(max-width:768px)');
   const [openDrawer, setOpenDrawer] = useState(false);
   //darkmode
   const { theme } = useTheme();
@@ -60,7 +60,7 @@ export default function Header() {
       >
         <Toolbar>
           <Link href='/'>
-            <a className='flex items-center'>
+            <a className='flex items-center '>
               <div className='w-6 md:w-10'>
                 <Image width='40px' height='40px' alt='logo' src={img} priority={true}/>
               </div>
@@ -69,7 +69,7 @@ export default function Header() {
               </Typography>
             </a>
           </Link>
-          <SearchBar />
+       <div className="flex  ml-auto">  <div className="md:mr-20 sm:mr-16"> <SearchBar /></div>
 
           {!matches && (
             <div className='flex items-center'>
@@ -87,13 +87,16 @@ export default function Header() {
               <DarkModeSwitch />
             </div>
           )}
+
+
           {isLoggedIn && !matches && <UserAvatar />}
-          {matches ? (
+          {matches? (
             <Fragment>
-              <CartIcon />
-              {isLoggedIn && <UserAvatar />}
+            <div className="mx-auto flex"> <CartIcon />
+            <div className="hidden sm:block">  {isLoggedIn && <UserAvatar />}</div> 
+              </div>  
               <IconButton
-                className='text-white'
+                className='text-gray-600 dark:text-gray-200 ml-auto'
                 onClick={() => setOpenDrawer(!openDrawer)}
               >
                 <ViewHeadlineOutlinedIcon />
@@ -101,7 +104,7 @@ export default function Header() {
             </Fragment>
           ) : null}
           {drawer}
-        </Toolbar>
+        </div></Toolbar>
       </AppBar>
     </Fragment>
   );

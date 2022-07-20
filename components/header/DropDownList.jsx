@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React ,{Fragment , useState} from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,13 +13,17 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import DarkModeSwitch from './DarkModeSwitch';
 import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { useSelector } from 'react-redux';
+import Link from 'next/link'
+import UserAvatar from './UserAvatar';
 
 export default function DropDownList() {
-  const [open, setOpen] = React.useState(true);
-
+  const [open, setOpen] = useState(true);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const handleClick = () => {
     setOpen(!open);
   };
+
 
   return (
     <List
@@ -28,7 +32,7 @@ export default function DropDownList() {
       aria-labelledby='nested-list-subheader'
       subheader={
         <ListSubheader component='div' id='nested-list-subheader'>
-          <DarkModeSwitch />
+        <div className='flex'>   <DarkModeSwitch /><div className='sm:hidden'> {isLoggedIn && <UserAvatar />}</div> </div>
         </ListSubheader>
       }
     >
@@ -37,7 +41,7 @@ export default function DropDownList() {
           <SendIcon />
         </ListItemIcon>
         <ListItemText primary='Home' />
-      </ListItemButton>
+      </ListItemButton> 
 
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
@@ -48,40 +52,46 @@ export default function DropDownList() {
       </ListItemButton>
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+     
+      
+      <Link href='/products/mobile' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary='Mobile' />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          </ListItemButton></Link>
+         <Link href='/products/laptop' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary='Laptop' />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          </ListItemButton></Link>
+          <Link href='/products/other' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary='Others' />
-          </ListItemButton>
+          </ListItemButton></Link>
         </List>
       </Collapse>
 
-      <ListItemButton>
-        <ListItemIcon>
-          <HowToRegIcon />
-        </ListItemIcon>
-        <ListItemText primary='Register' />
-      </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <LoginIcon />
-        </ListItemIcon>
-        <ListItemText primary='Log in' />
-      </ListItemButton>
+      {!isLoggedIn && (
+        <Fragment>
+        
+          <Link href='/signup' passHref><ListItemButton>
+            <ListItemIcon>
+              <HowToRegIcon />
+            </ListItemIcon>
+            <ListItemText primary='Register' />
+          </ListItemButton></Link>
+          <Link href="/login" passHref><ListItemButton>
+            <ListItemIcon>
+              <LoginIcon />
+            </ListItemIcon>
+            <ListItemText primary='Log in' />
+          </ListItemButton></Link>
+        </Fragment>
+      )}
     </List>
   );
 }

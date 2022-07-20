@@ -31,7 +31,7 @@ export default function LoginPage() {
     <Container
       component='main'
       maxWidth='xs'
-      className='dark:bg-gray-300 bg-gray-100'
+      className='dark:bg-gray-300 bg-gray-100 rounded-lg pb-4'
     >
       <CssBaseline />
       <Box

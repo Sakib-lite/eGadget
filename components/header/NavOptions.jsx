@@ -18,13 +18,10 @@ export default function NavOptions() {
   return (
     <Fragment>
       <div className='justify-center'>
-        <Button
+        <Link href='/' passHref><Button
           variant='outlined'
           className='text-gray-500 dark:text-gray-100 border-transparent hover:border-current'
-        >
-    
-          Home
-        </Button>
+        > Home  </Button></Link>
         <Button
           variant='outlined'
           className='text-gray-500 dark:text-gray-100 border-transparent hover:border-current'

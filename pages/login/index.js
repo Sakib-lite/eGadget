@@ -22,7 +22,7 @@ const Login = () => {
           flexDirection='column'
           className='dark:bg-gray-500'
         >
-          <div className='flex justify-center'>
+          <div className='flex justify-center py-6'>
           </div>
           <LoginPage />
         </Box>

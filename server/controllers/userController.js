@@ -2,37 +2,6 @@ const User = require('../models/userModel');
 const userController = require('./handlerController');
 const catchError = require('../../utils/catchError');
 const Error = require('../../utils/appError');
-const multer = require('multer');
-const sharp = require('sharp');
-
-const multerStorage = multer.memoryStorage();
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Please upload an image', 400), false);
-  }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-});
-
-exports.uploadImage = upload.single('image');
-
-exports.resizeImage = catchError(async (req, res, next) => {
-  if (!req.file) return next();
-  const name = req.user.name.split(' ').join('-');
-  req.file.fileName = `${name}-${req.user.id}.jpeg`;
-
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/users/${req.file.fileName}`);
-  next();
-});
 
 const excludingItems = (obj, ...exclude) => {
   let newObj = {};
@@ -80,4 +49,14 @@ exports.getMe = (req, res, next) => {
 exports.getUser = userController.getDocumentById(User, [
   ['reviews', 'review rating onModel -user'],
   ['orders', 'cart price createdAt -user'],
-]); //virtulal poputating reviews
+]); //virtual poputating reviews
+
+exports.getUserbyId=catchError(async (req,res,next)=>{
+
+  const user=await User.findById(req.params.id).select('+role')
+  if(!user) return next(new Error('User not found',404))
+  res.status(200).json({
+    status:'success',
+    user
+  })
+})

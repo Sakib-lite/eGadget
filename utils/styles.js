@@ -1,10 +1,9 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 
 // eslint-disable-next-line no-unused-vars
 export const useStyles = makeStyles((theme) => ({
-
   searchBox: {
     marginLeft: 'auto',
   },
@@ -22,22 +21,32 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   centerComponent: {
-    display:'flex',
-    justifyContent:'center'
+    display: 'flex',
+    justifyContent: 'center',
   },
   section: {
     marginTop: 10,
     marginBottom: 10,
   },
+  reviewForm: {
+    maxWidth: 800,
+    width: '100%',
+  },
+  reviewItem: {
+    marginRight: '1rem',
+    borderRight: '1px #808080 solid',
+    paddingRight: '1rem',
+  },
+  tab: {
+    minWidth: 70, // a number of your choice
+    width: 70, // a number of your choice
+}
+
 }));
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.25),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
   marginLeft: '5px',
   width: '8rem',
   [theme.breakpoints.up('md')]: {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -7,7 +6,6 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Link from 'next/link';
 import HomeIcon from '@mui/icons-material/Home';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { sendData } from '../../utils/apiCall';
 
 export default function ForgetPassword() {
@@ -21,7 +19,8 @@ export default function ForgetPassword() {
     sendData(
       '/api/users/forgot-password',
       formData,
-      'Password reset link has been sent to your email.'
+      'Password reset link has been sent to your email address.'
+    
     );
   };
 
@@ -44,9 +43,11 @@ export default function ForgetPassword() {
             <HomeIcon />
           </IconButton>
         </Link>{' '}
-        <Avatar className='bg-green-400 mr-2' size='large'>
-          <PersonSearchIcon />
-        </Avatar>{' '}
+        <div className='flex items-center justify-center h-screen'>
+          <h2 className='text-xl font-semibold  text-gray-700 sm:text-2xl md:text-3xl dark:text-white'>
+            Forgot Password
+          </h2>
+        </div>
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin='normal'
