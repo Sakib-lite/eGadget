@@ -70,7 +70,7 @@ export default function DropDownList() {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary='Others' />
+            <ListItemText primary='Other' />
           </ListItemButton></Link>
         </List>
       </Collapse>

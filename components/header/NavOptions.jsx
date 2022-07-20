@@ -48,7 +48,7 @@ export default function NavOptions() {
       >
         <Link href='/product/laptop' passHref><MenuItem onClick={handleClose}>Laptop</MenuItem></Link>
         <Link href='/product/mobile' passHref><MenuItem onClick={handleClose}>Mobile</MenuItem></Link>
-        <Link href='/product/others' passHref><MenuItem onClick={handleClose}>Others</MenuItem></Link>
+        <Link href='/product/other' passHref><MenuItem onClick={handleClose}>Others</MenuItem></Link>
       </Menu>
     </Fragment>
   );

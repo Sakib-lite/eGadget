@@ -14,7 +14,7 @@ const othersSchema = new mongoose.Schema(
     },
     category: {
       type: 'string',
-      default: 'Others',
+      default: 'Other',
     },
     brand: {
       type: String,
