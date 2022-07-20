@@ -68,6 +68,12 @@ userSchema.virtual('reviews', {
   foreignField: 'user',
 });
 
+userSchema.virtual('orders',{
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'user',
+})
+
 //if only password is modified this middleware gonna run and hash the password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

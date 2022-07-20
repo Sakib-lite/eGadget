@@ -1,4 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice,createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios'
+import Snackbar from './../notistick/Snackbar';
+
+
+export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithValue })=>{
+  try {
+    const response = await axios.post(
+      '/api/order/checkout-session',data
+    );
+    window.location=response.data.url;
+  } catch (err) {
+    Snackbar.error(err.response.data.message);
+    return rejectWithValue();
+  }
+})
+
+
+
+
 
 const initialState = {
   cartItems: [],

@@ -23,7 +23,7 @@ const Orders = () => {
               <div className='pb-4 md:pb-8 w-full md:w-40'>
                 <Image
                   className='w-full hidden md:block'
-                  src='https://i.ibb.co/84qQR4p/Rectangle-10.png'
+                  src='/products/product.png'
                   alt='dress'
                   width={300}
                   height={300}
@@ -49,13 +49,7 @@ const Orders = () => {
                   </div>
                 </div>
                 <div className='flex justify-between space-x-8 items-start w-full'>
-                  <p className='text-base xl:text-lg leading-6'>
-                    $36.00{' '}
-                    <span className='text-red-300 line-through'> $45.00</span>
-                  </p>
-                  <p className='text-base xl:text-lg leading-6 text-gray-800'>
-                    01
-                  </p>
+                
                   <p className='text-base xl:text-lg font-semibold leading-6 text-gray-800'>
                     $36.00
                   </p>
