@@ -11,7 +11,7 @@ import { cartActions } from './../../utils/redux/cart-slice';
 import { useSnackbar } from 'notistack';
 
 export default function Products({ product }) {
-  const {
+  let {
     name,
     brand,
     price,
@@ -28,6 +28,7 @@ export default function Products({ product }) {
   const { enqueueSnackbar } = useSnackbar();
   const ct = category.toLowerCase();
   const addItemToCartHandler = () => {
+    priceAfterDiscount? price=priceAfterDiscount:''
     dispatch(
       cartActions.addItemToCart({
         name,

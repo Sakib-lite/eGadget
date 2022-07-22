@@ -46,13 +46,6 @@ const OrderPage = ({ product }) => {
             </ListItem>
             <ListItem>
               <Typography className='text-gray-500 dark:text-gray-100 sm:text-md text-xl'>
-                Price: ৳{product.discount > 0
-                  ? product.priceAfterDiscount
-                  : product.price}
-              </Typography>
-            </ListItem>
-            <ListItem>
-              <Typography className='text-gray-500 dark:text-gray-100 sm:text-md text-xl'>
                 Description: {product?.description}
               </Typography>
             </ListItem>
@@ -70,7 +63,9 @@ const OrderPage = ({ product }) => {
                   </Grid>
                   <Grid item xs={6}>
                     <Typography className='text-gray-500 dark:text-gray-800 sm:text-md text-xl'>
-                    ৳{product.price}
+                    ৳{product.discountPercent > 0
+                  ? product.priceAfterDiscount
+                  : product.price}
                     </Typography>
                   </Grid>
                 </Grid>

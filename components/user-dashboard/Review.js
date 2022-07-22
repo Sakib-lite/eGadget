@@ -3,7 +3,6 @@ import React, { Fragment } from 'react';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 const Review = ({ review, rating, type, product }) => {
-  console.log('🚀 ~ product', product);
   return (
     <Fragment>
       <div className='sm:px-12 px-6 py-8 transition-colors duration-200 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent'>

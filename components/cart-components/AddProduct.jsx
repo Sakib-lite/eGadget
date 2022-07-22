@@ -7,12 +7,12 @@ import Cookies from 'js-cookie';
 
 
 export default function AddProduct({ product }) {
-  const { name, brand, price, description, slug, image, id, category } =
+  let { name, brand, price, description, slug, image, id, category,priceAfterDiscount } =
     product;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { enqueueSnackbar } = useSnackbar();
-
+  priceAfterDiscount? price=priceAfterDiscount:''
   const addItemToCartHandler = () => {
     dispatch(
       cartActions.addItemToCart({

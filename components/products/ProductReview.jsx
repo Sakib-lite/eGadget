@@ -47,7 +47,7 @@ const ProductReview = ({
 
                 <div className='ml-4'>
                   <div className='flex -ml-1'>
-                    <Rating value={ratingsAverage} readOnly precision={0.5}/>
+                    <Rating value={+ratingsAverage} readOnly precision={0.5}/>
                   </div>
 
                   <p className='mt-0.5 text-xs text-gray-500'>
