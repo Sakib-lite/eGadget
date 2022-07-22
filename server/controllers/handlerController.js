@@ -6,7 +6,6 @@ exports.createDocument = (Model) =>
   catchError(async (req, res) => {
     if (req.file) {
       const image = req.file.fileName;
-      console.log(req.file)
       req.body = { ...req.body, image };
     
     }

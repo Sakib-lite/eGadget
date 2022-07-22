@@ -55,12 +55,10 @@ const cartSlice = createSlice({
           category: newItem.category,
         });
         state.totalPrice += newItem.price;
-        console.log('  state.totalPrice', state.totalPrice)
       } else {
         existingItem.quantity++;
         existingItem.existingItemTotalPrice += newItem.price;
         state.totalPrice += newItem.price;
-        console.log('  totalPrice', state.totalPrice)
       }
     },
     removeItemFromCart(state, action) {
