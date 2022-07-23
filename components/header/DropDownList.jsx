@@ -54,19 +54,19 @@ export default function DropDownList() {
         <List component='div' disablePadding>
      
       
-      <Link href='/products/mobile' passHref><ListItemButton sx={{ pl: 4 }}>
+      <Link href='/product/mobile' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary='Mobile' />
           </ListItemButton></Link>
-         <Link href='/products/laptop' passHref><ListItemButton sx={{ pl: 4 }}>
+         <Link href='/product/laptop' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary='Laptop' />
           </ListItemButton></Link>
-          <Link href='/products/other' passHref><ListItemButton sx={{ pl: 4 }}>
+          <Link href='/product/other' passHref><ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
