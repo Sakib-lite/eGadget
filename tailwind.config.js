@@ -27,13 +27,11 @@ const themeConstants = {
 };
 
 module.exports = {
-//  mode: "",
- purge: [
-    "./pages/*.{js,ts,jsx,tsx}",
-    "./Components/**/*.{js,ts,jsx,tsx}",
-    "./hoc/*.{js,ts,jsx,tsx}",
-    "./Widgets/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.{js,ts,jsx,tsx}',
+],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
