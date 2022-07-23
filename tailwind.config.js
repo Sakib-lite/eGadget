@@ -27,7 +27,7 @@ const themeConstants = {
 };
 
 module.exports = {
- mode: "jit",
+//  mode: "",
  purge: [
     "./pages/*.{js,ts,jsx,tsx}",
     "./Components/**/*.{js,ts,jsx,tsx}",
