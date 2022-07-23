@@ -25,7 +25,7 @@ const Profile = () => {
     const getData = async () => {
       try {
         dispatch(setLoading());
-        const response = await axios.get('/api/users/me');
+        const response = await axios.get('https://e-gadget-app.herokuapp.com/api/users/me');
         setData(response.data.data);
         dispatch(unsetLoading());
       } catch (err) {

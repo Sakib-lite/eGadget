@@ -17,7 +17,7 @@ export default function ForgetPassword() {
     };
 
     sendData(
-      '/api/users/forgot-password',
+      'https://e-gadget-app.herokuapp.com/api/users/forgot-password',
       formData,
       'Password reset link has been sent to your email address.'
     

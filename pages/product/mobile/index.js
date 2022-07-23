@@ -17,10 +17,9 @@ const Mobile = ({ data }) => {
 
 export default Mobile;
 
-export async function getServerSideProps(context) {
-  const URL = context.req.headers.host;
+export async function getServerSideProps() {
 
-  const mobile = await axios.get(`http://${URL}/api/product/mobile`);
+  const mobile = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/mobile`);
   const data = mobile.data;
   return {
     props: {

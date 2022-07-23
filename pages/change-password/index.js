@@ -19,7 +19,7 @@ export default function ChangePassword() {
     };
 
     updateData(
-      '/api/users/me/change-password',
+      'https://e-gadget-app.herokuapp.com/api/users/me/change-password',
       formData,
       'Password has been changed successfully.'
     );

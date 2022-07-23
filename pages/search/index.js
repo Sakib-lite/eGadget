@@ -24,9 +24,9 @@ const Search = ({ data }) => {
 export default Search;
 
 export async function getServerSideProps(context) {
-  const URL = context.req.headers.host;
+
   const products = await axios.get(
-    `http://${URL}/api/search?name=${context.query.name}`
+    `https://e-gadget-app.herokuapp.com/api/search?name=${context.query.name}`
   );
   const data = products.data;
   return {

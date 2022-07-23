@@ -6,7 +6,7 @@ import Snackbar from './../notistick/Snackbar';
 export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithValue })=>{
   try {
     const response = await axios.post(
-      '/api/order/checkout-session',data
+      'https://e-gadget-app.herokuapp.com/api/order/checkout-session',data
     );
     window.location=response.data.url;
   } catch (err) {

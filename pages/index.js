@@ -24,17 +24,16 @@ export default function Home({ dataArr }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const URL = context.req.headers.host;
+export async function getServerSideProps() {
 
   const mobile = await axios.get(
-    `http://${URL}/api/product/mobile/?isFeatured=true`
+    `https://e-gadget-app.herokuapp.com/api/product/mobile/?isFeatured=true`
   );
   const laptop = await axios.get(
-    `http://${URL}/api/product/laptop/?isFeatured=true`
+    `https://e-gadget-app.herokuapp.com/api/product/laptop/?isFeatured=true`
   );
   const others = await axios.get(
-    `http://${URL}/api/product/other/?isFeatured=true`
+    `https://e-gadget-app.herokuapp.com/api/product/other/?isFeatured=true`
   );
 
   const mblData = mobile.data;

@@ -17,10 +17,10 @@ const Others = ({ data }) => {
 
 export default Others;
 
-export async function getServerSideProps(context) {
-  const URL = context.req.headers.host;
+export async function getServerSideProps() {
 
-  const others = await axios.get(`http://${URL}/api/product/other`);
+
+  const others = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/other`);
   const data = others.data;
   return {
     props: {

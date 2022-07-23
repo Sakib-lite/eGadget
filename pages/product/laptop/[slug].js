@@ -18,8 +18,8 @@ export default function LaptopProduct({ product }) {
 export async function getServerSideProps(context) {
   const { params } = context;
   const { slug } = params;
-  const URL = context.req.headers.host;
-  const response = await axios.get(`http://${URL}/api/product/laptop/${slug}`);
+
+  const response = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/laptop/${slug}`);
   return {
     props: {
       product: response.data?.data,
