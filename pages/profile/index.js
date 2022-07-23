@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import Layout from '../../components/layout/Layout';
-import Profile from '../../components/user-dashboard/profile';
+import Profile from '../../components/user-dashboard/Profile';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
