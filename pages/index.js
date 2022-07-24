@@ -27,13 +27,13 @@ export default function Home({ dataArr }) {
 export async function getServerSideProps() {
 
   const mobile = await axios.get(
-    `https://e-gadget-app.herokuapp.com/api/product/mobile/?isFeatured=true`
+    `https://e-gadget-backend-sakib-lite.vercel.app/api/product/mobile/?isFeatured=true`
   );
   const laptop = await axios.get(
-    `https://e-gadget-app.herokuapp.com/api/product/laptop/?isFeatured=true`
+    `https://e-gadget-backend-sakib-lite.vercel.app/api/product/laptop/?isFeatured=true`
   );
   const others = await axios.get(
-    `https://e-gadget-app.herokuapp.com/api/product/other/?isFeatured=true`
+    `https://e-gadget-backend-sakib-lite.vercel.app/api/product/other/?isFeatured=true`
   );
 
   const mblData = mobile.data;

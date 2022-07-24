@@ -11,7 +11,7 @@ const Admin = () => {
   const [load, setLoad] = useState(false);
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`https://e-gadget-app.herokuapp.com/api/users/${user.id}`);
+      const { data } = await axios.get(`https://e-gadget-backend-sakib-lite.vercel.app/api/users/${user.id}`);
       setRole(data.user.role);
       setLoad(true);
     } catch (err) {

@@ -47,7 +47,7 @@ export default function DropDownList() {
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
-        <ListItemText primary='Catagory' />
+        <ListItemText primary='Category' />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout='auto' unmountOnExit>

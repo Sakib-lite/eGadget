@@ -17,7 +17,7 @@ export default function ForgetPassword() {
     };
 
     sendData(
-      'https://e-gadget-app.herokuapp.com/api/users/forgot-password',
+      'https://e-gadget-backend-sakib-lite.vercel.app/api/users/forgot-password',
       formData,
       'Password reset link has been sent to your email address.'
     

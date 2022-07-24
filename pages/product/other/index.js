@@ -20,7 +20,7 @@ export default Others;
 export async function getServerSideProps() {
 
 
-  const others = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/other`);
+  const others = await axios.get(`https://e-gadget-backend-sakib-lite.vercel.app/api/product/other`);
   const data = others.data;
   return {
     props: {

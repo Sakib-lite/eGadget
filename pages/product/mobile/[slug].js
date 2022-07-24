@@ -17,7 +17,7 @@ export default function MobileProduct({ product }) {
 export async function getServerSideProps(context) {
   const { params } = context;
   const { slug } = params;
-  const response = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/mobile/${slug}`);
+  const response = await axios.get(`https://e-gadget-backend-sakib-lite.vercel.app/api/product/mobile/${slug}`);
   return {
     props: {
       product: response.data?.data,

@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { slug } = params;
 
-  const response = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/laptop/${slug}`);
+  const response = await axios.get(`https://e-gadget-backend-sakib-lite.vercel.app/api/product/laptop/${slug}`);
   return {
     props: {
       product: response.data?.data,

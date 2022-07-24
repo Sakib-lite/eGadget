@@ -32,7 +32,7 @@ export default function NavOptions() {
           onClick={handleClick}
         >
       
-          Catagory
+          Category
         </Button>
      
       </div>

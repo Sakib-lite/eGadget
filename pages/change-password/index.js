@@ -19,7 +19,7 @@ export default function ChangePassword() {
     };
 
     updateData(
-      'https://e-gadget-app.herokuapp.com/api/users/me/change-password',
+      'https://e-gadget-backend-sakib-lite.vercel.app/api/users/me/change-password',
       formData,
       'Password has been changed successfully.'
     );

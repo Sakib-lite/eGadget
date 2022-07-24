@@ -19,7 +19,7 @@ export default Mobile;
 
 export async function getServerSideProps() {
 
-  const mobile = await axios.get(`https://e-gadget-app.herokuapp.com/api/product/mobile`);
+  const mobile = await axios.get(`https://e-gadget-backend-sakib-lite.vercel.app/api/product/mobile`);
   const data = mobile.data;
   return {
     props: {

@@ -26,7 +26,7 @@ export default Search;
 export async function getServerSideProps(context) {
 
   const products = await axios.get(
-    `https://e-gadget-app.herokuapp.com/api/search?name=${context.query.name}`
+    `https://e-gadget-backend-sakib-lite.vercel.app/api/search?name=${context.query.name}`
   );
   const data = products.data;
   return {

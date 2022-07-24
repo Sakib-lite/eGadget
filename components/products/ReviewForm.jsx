@@ -18,7 +18,7 @@ const ReviewForm = ({ id, productType }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`https://e-gadget-app.herokuapp.com/api/product/${productType}/${id}/review`, {
+      await axios.post(`https://e-gadget-backend-sakib-lite.vercel.app/api/product/${productType}/${id}/review`, {
         rating,
         review: comment,
       });
