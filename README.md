@@ -6,7 +6,7 @@
 ## A Full Stack E-Commerce Application
 
 
-- Backend 
+- Frontend 
   - NextJS
   - Material UI
   - Tailwind CSS
