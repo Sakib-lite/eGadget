@@ -32,7 +32,9 @@ export const login = createAsyncThunk(
     try {
       dispatch(setLoading());
       const response = await AuthService.login(formData);
+      console.log('  response', response)
       if (response.token) Cookies.set('user', JSON.stringify(response.user));
+      if (response.token) Cookies.set('token', JSON.stringify(response.token));
       Snackbar.success(response.message);
       dispatch(unsetLoading());
       window.location.reload();

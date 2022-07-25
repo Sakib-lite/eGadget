@@ -11,12 +11,17 @@ import { SnackbarProvider } from 'notistack';
 import store from '../utils/redux/store';
 import Collapse from '@mui/material/Collapse';
 import { SnackbarUtilsConfigurator } from '../utils/notistick/Snackbar';
+import axios from 'axios';
+import Cookies from 'js-cookie'
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
 });
 
 function MyApp({ Component, pageProps }) {
+ 
+  axios.defaults.headers.post['Authorization'] = `Bearer ${Cookies.get('token') ? JSON.parse(Cookies.get('token')) : null}`;
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
