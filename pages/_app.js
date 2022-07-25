@@ -20,7 +20,7 @@ const generateClassName = createGenerateClassName({
 
 function MyApp({ Component, pageProps }) {
  
-  axios.defaults.headers.post['Authorization'] = `Bearer ${Cookies.get('token') ? JSON.parse(Cookies.get('token')) : null}`;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${Cookies.get('token') ? JSON.parse(Cookies.get('token')) : null}`;
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
