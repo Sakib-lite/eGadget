@@ -11,7 +11,6 @@ export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithVal
     window.location=response.data.url;
   } catch (err) {
     Snackbar.error(err.response.data.message);
-    console.log('  err', err)
     return rejectWithValue();
   }
 })
