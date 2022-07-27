@@ -3,12 +3,19 @@ import axios from 'axios'
 import Snackbar from './../notistick/Snackbar';
 
 
-export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithValue })=>{
+export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithValue,dispatch })=>{
   try {
     const response = await axios.post(
       'https://e-gadget-backend-sakib-lite.vercel.app/api/order/checkout-session',data
     );
     window.location=response.data.url;
+    
+    Snackbar.success("Order Completed");
+    dispatch(
+      cartActions.replaceCart(
+         { cartItems: [], totalItems: 0, totalPrice: 0 }
+      )
+    );
   } catch (err) {
     console.log('  err', err)
     Snackbar.error(err.response.data.message);
