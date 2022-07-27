@@ -49,6 +49,8 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   const response = await AuthService.logout();
+  Cookies.remove('token')
+  Cookies.remove('user')
   Snackbar.error(response.data.message);
 });
 

@@ -10,6 +10,7 @@ export const placeOrder=createAsyncThunk('cart/order',async(data,{ rejectWithVal
     );
     window.location=response.data.url;
   } catch (err) {
+    console.log('  err', err)
     Snackbar.error(err.response.data.message);
     return rejectWithValue();
   }
