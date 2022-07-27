@@ -1,18 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Snackbar from './../notistick/Snackbar';
+import { setLoading, unsetLoading } from './ui-slice';
 
 export const placeOrder = createAsyncThunk(
   'cart/order',
   async (data, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(setLoading());
       const response = await axios.post(
         'https://e-gadget-backend-sakib-lite.vercel.app/api/order/checkout-session',
         data
       );
   
-      window.location = response.data.url;
-          if (response.date.status === 'success') {
+      window.location = response.data.url;    
         dispatch(
           cartActions.replaceCart({
             cartItems: [],
@@ -20,9 +21,10 @@ export const placeOrder = createAsyncThunk(
             totalPrice: 0,
           })
         );
+        dispatch(unsetLoading());
         Snackbar.success(response.data.message);
-      }
     } catch (err) {
+      dispatch(unsetLoading());
       console.log('  err', err);
       Snackbar.error(err.response.data.message);
       return rejectWithValue();
