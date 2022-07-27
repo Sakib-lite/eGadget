@@ -22,7 +22,7 @@ export const placeOrder = createAsyncThunk(
           })
         );
         dispatch(unsetLoading());
-        Snackbar.success(response.data.message);
+        // Snackbar.success(response.data.message);
     } catch (err) {
       dispatch(unsetLoading());
       console.log('  err', err);
