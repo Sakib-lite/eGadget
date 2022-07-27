@@ -10,7 +10,9 @@ export const placeOrder = createAsyncThunk(
         'https://e-gadget-backend-sakib-lite.vercel.app/api/order/checkout-session',
         data
       );
-      if (response.date.status === 'success') {
+  
+      window.location = response.data.url;
+          if (response.date.status === 'success') {
         dispatch(
           cartActions.replaceCart({
             cartItems: [],
@@ -20,7 +22,6 @@ export const placeOrder = createAsyncThunk(
         );
         Snackbar.success(response.data.message);
       }
-      window.location = response.data.url;
     } catch (err) {
       console.log('  err', err);
       Snackbar.error(err.response.data.message);
