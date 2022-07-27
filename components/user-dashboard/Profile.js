@@ -5,7 +5,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import UserUpdate from './UserUpdate.jsx';
 import UserInfo from './UserInfo';
-import Orders from './Orders.js';
+import AllOrders from './AllOrders.js';
 import AllReviews from './AllReviews.js';
 import { useDispatch } from 'react-redux';
 import { setLoading, unsetLoading } from '../../utils/redux/ui-slice.js';
@@ -30,8 +30,8 @@ const Profile = () => {
         dispatch(unsetLoading());
       } catch (err) {
         dispatch(unsetLoading());
-        Snackbar.error(err.response.data.message);
-        console.log(err)
+        Snackbar.error('Something were wrong');
+        // console.log(err)
       }
     };
     getData();
@@ -65,7 +65,7 @@ const Profile = () => {
                 <UserUpdate />
               </TabPanel>
               <TabPanel value='3'>
-                <Orders />
+                <AllOrders orders={data?.orders}/>
               </TabPanel>
               <TabPanel value='4'>
           <AllReviews reviews={data?.reviews}/>
