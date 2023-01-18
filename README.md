@@ -1,3 +1,6 @@
+
+If loading this website fails the first time, refresh the page again. It's Vercel (deployed platform) issue.
+
 [Live Preview](https://e-gadget.vercel.app/)
 
 ![app](https://user-images.githubusercontent.com/77607002/180618977-da08b887-1ab6-4d01-b1e1-b2c1877b81ed.jpg)
